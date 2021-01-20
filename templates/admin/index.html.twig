@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        {# app/Resources/views/default/new.html.twig #}
+        {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    </div>
+{% endblock %}
