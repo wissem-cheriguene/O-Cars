@@ -3,15 +3,19 @@
 namespace App\Form;
 
 use App\Entity\Car;
+use App\Entity\Brand;
 use Doctrine\DBAL\Types\ArrayType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CarType extends AbstractType
 {
@@ -19,10 +23,14 @@ class CarType extends AbstractType
     {
         $builder
             ->add('model', TextType::class, [
-                'label'  => 'Modèle',
+                'label'  => 'Modèle du véhicule',
                 ])
-            ->add('brand', TextType::class, [
-                'label'  => 'Marque',
+            ->add('brand', EntityType::class, [
+                // looks for choices from this entity
+                'class' => 'App\Entity\Brand',
+                'label' => 'Marque du véhicule',
+                // uses the Brand.username property as the visible option string
+                'choice_label' => 'name',
             ])
             ->add('year', DateType::class, [
                 'label'  => 'Année de sortie',
@@ -34,11 +42,21 @@ class CarType extends AbstractType
                 'label'  => 'Plaque d\'immatriculation',
             ])
             ->add('image', FileType::class, [
-                'label'  => 'Image(s) du véhicule',
-                'multiple' => true
+                'label'  => 'Ajoutez des images du véhicule',
+                'multiple' => true,
+                'attr'     => [
+                    'accept' => 'image/*',
+                    'multiple' => 'multiple'
+                ]
             ])
-            ->add('engine', TextType::class, [
+            ->add('engine', ChoiceType::class, [
                 'label'  => 'Type de motorisation',
+                'choices'  => [
+                    'Diesel' => 'diesel',
+                    'Essence' => 'essence',
+                    'GPL' => 'gpl',
+                    'Hybride' => 'hybride',
+                ],
             ])
             ->add('seat', NumberType::class, [
                 'label'  => 'Nombre de place(s)',
@@ -49,23 +67,37 @@ class CarType extends AbstractType
             ->add('color', TextType::class, [
                 'label'  => 'Couleur(s) du véhicule',
             ])
-            ->add('gearbox', TextType::class, [
+            ->add('gearbox', ChoiceType::class, [
                 'label'  => 'Types de boîtes de vitesses',
+                'choices'  => [
+                    'Manuelle' => 'manuelle',
+                    'Automatique' => 'automatique',
+                    'Séqentielle' => 'seqentielle',
+                ],
             ])
             ->add('title', TextType::class, [
                 'label'  => 'Titre de l\'annonce',
+                'help' => 'Le titre ne doit pas dépasser 255 caractères'
             ])
-            ->add('description', TextType::class, [
+            ->add('description', TextareaType::class, [
                 'label'  => 'Description de l\'annonce',
             ])
             ->add('price', NumberType::class, [
                 'label'  => 'Prix de la location par jour',
             ])
-            ->add('category', TextType::class, [
-                'label'  => 'Catégorie',
+            ->add('category', EntityType::class, [
+                // looks for choices from this entity
+                'class' => 'App\Entity\Category',
+                'label' => 'Catégorie du véhicule',
+                // uses the Brand.username property as the visible option string
+                'choice_label' => 'name',
             ])
-            ->add('city', TextType::class, [
+            ->add('city', EntityType::class, [
                 'label'  => 'Ville de départ',
+                // looks for choices from this entity
+                'class' => 'App\Entity\City',
+                // uses the Brand.username property as the visible option string
+                'choice_label' => 'name',
             ])
             ->add('save', SubmitType::class)
         ;

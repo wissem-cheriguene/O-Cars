@@ -4,8 +4,8 @@
 
 App\Entity\Brand:
     brand_{1..23}:
-        name: '<word()>' 
+        name: '<carBrandName()>' 
 
 App\Entity\Category:
-    category_{1..50}:
-        title: '<text(55)>'    
+    category_{1..10}:
+        name: '<numberBetween(0,5)>'    

@@ -18,13 +18,13 @@ class AdminController extends AbstractController
     {
         $car = new Car();
         $form = $this->createForm(CarType::class, $car);
-
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             // $form->getData() contient les données soumises
             // mais la variable `$car` a également été mise à jour
             $car = $form->getData();
+            // dd($car);
 
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();

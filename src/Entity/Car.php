@@ -132,6 +132,7 @@ class Car
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->isPublished = false;
         $this->rentals = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
