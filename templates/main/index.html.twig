@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container position-relative">
+    <div class="position-absolute">
+      <h1>Partez<br>O'Cars de tour !</h1>
+    </div>
+    <img src="https://source.unsplash.com/1600x900/?cars,bmw" class="img-fluid" alt="Responsive image">
+    <form class="form-inline my-2 my-lg-0 position-absolute search-form-middle">
+      <input class="form-control mr-sm-2" type="text" placeholder="Entrez votre modèle ou marque de voiture...">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<div class="container d-flex justify-content-center">
+  <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item">
+        <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Three</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">★ ★ ★ ★ ☆</small>
+              </div>
+            </div>
+      </div>
+      <div class="carousel-item">
+        <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Three</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">★ ★ ★ ★ ☆</small>
+              </div>
+            </div>
+      </div>
+      <div class="carousel-item active">
+        <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Three</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">★ ★ ★ ★ ☆</small>
+              </div>
+            </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+{% endblock %}
