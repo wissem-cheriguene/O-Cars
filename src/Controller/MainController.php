@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Car;
 use App\Repository\BrandRepository;
 use App\Repository\CarRepository;
+use App\Repository\ImagesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +15,13 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(): Response
+    public function index(CarRepository $carRepository, ImagesRepository $imagesRepository): Response
     {
+        $cars = $carRepository->findAll();
+        $images = $imagesRepository->findAll();
+        dump($images);
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'cars' => $cars,
         ]);
     }
 
@@ -42,36 +47,27 @@ class MainController extends AbstractController
     }
 
     /**
+     * Liste des voitures 
      * @Route("/voitures", name="cars_list")
      */
-    public function carsList(CarRepository $carRepository, BrandRepository $brandRepository): Response
+    public function carsList(CarRepository $carRepository): Response
     {
-             // Toutes les voitures
-             $car = $carRepository->findAll(['model' => 'ASC']);
-
-             
-
-             // Toutes les marques
-             $brand = $brandRepository->findAll(['name' => 'ASC']);
-
-             dump($brand);
+        // Toutes les voitures
+        $car = $carRepository->findAll(['model' => 'ASC']);
 
         return $this->render('main/cars_list.html.twig',[
-            'controller_name' => 'MainController',
             'cars' => $car,
-            'brand' => $brand,
         ]);
         
     }
     /**
-     * @Route("/voiture/{id}, name="car")
+     * Affichage d'une annonce
+     * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    /* 
-    public function car(): Response
+    public function car(Car $car): Response
     {
         return $this->render('main/car.html.twig',[
-            'controller_name' => 'MainController',
+            'car' => $car,
         ]);
     } 
-    */
 }

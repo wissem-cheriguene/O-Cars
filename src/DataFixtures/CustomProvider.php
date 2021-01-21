@@ -143,8 +143,34 @@ class CustomProvider{
       '976' =>	'Mayotte',
     ];
 
+    protected static $carModelNames = array(
+      "205 GTi", "5", "208", "3 Series", "308", "500 Abarth", "6 MPS", "607",
+      "612 Scaglietti", "7 Series", "800", "911", "5008", "A4", "A8",
+      "Agera R", "Aria", "Auris", "Avalon", "B-Max", "C3 Picasso", "C70",
+      "CLS Shooting Brake", "Camaro", "Caravan", "Cervo", "Challenger",
+      "Charger", "Charger", "Corsa", "Cortina", "Corvette", "DS5",
+      "Discovery", "EVO", "Equinox", "Falcon", "Falcon", "Flyer",
+      "Freelander", "GTO", "Golf", "Golf GTi", "Javalin", "Jetta", "LS",
+      "Life", "M5", "MX-5", "Magnette", "Malibu", "Megane", "Mini", "Monaro",
+      "Mondeo", "Move", "Note", "One", "Optima", "P1", "Pajero", "Panamera",
+      "Panda", "Patriot", "Polo", "Qashqai", "Regal", "Road Runner", "S-Max",
+      "S2000", "SC300", "SC400", "SRT-4", "Scorpio", "Scénic", "Sprinter",
+      "Torino", "Transit", "Transporter", "Type C", "V8", "Veyron 16.4", "XF",
+      "XF Sportbrake", "Zafira Tourer", "i40 Tourer"
+  );
 
+    protected static $engines = [
+      'Diesel' => 'diesel',
+      'Essence' => 'essence',
+      'GPL' => 'gpl',
+      'Hybride' => 'hybride',
+    ];
 
+    protected static $gearbox = [
+      'propulsion' => 'Propulsion',
+      'traction' => 'Traction',
+      'integrale' => '4x4',
+    ];
     public static function carCategories(){
         return static::$categories;
     }
@@ -153,7 +179,27 @@ class CustomProvider{
         return static::$carBrandNames;
     }
 
+    public static function carBrandName()
+    {
+        return static::$carBrandNames[array_rand((static::$carBrandNames))];
+    }
+
     public static function departments(){
       return static::$departments;
-  }
+    }
+
+    public static function carModelName()
+    {
+        return static::$carModelNames[array_rand((static::$carModelNames))];
+    }
+    
+    public static function carEngine()
+    {
+        return static::$engines[array_rand((static::$engines))];
+    }
+    
+    public static function carGearbox()
+    {
+        return static::$gearbox[array_rand((static::$gearbox))];
+    }
 }

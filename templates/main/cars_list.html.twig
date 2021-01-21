@@ -6,30 +6,29 @@
 
 {% block body %}
 
-<div class="container">
-    <h3> Bienvenue sur la page de nos voitures!</h3>
-
-    {% for car in cars %}
-        <div> modele:{{ car.model }}, couleur: {{car.color}}, nombre de places: {{car.seat}}</div>
-    {% endfor %}
-
-    {% for brand in brand %}
-        <div>{{brand.name}}</div>
-    {% endfor %}
+<div class="container mt-5">
+    <h1 class="display-4"> Liste des véhicules :</h1>
+    <div class="row">
+        {% for car in cars %} 
+        {% dump(car) %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="{{ path('car', {id:car.id})}}"><img class="card-img-top" src={{ car.images.0.name }} alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{ path('car', {id:car.id})}}">{{ car.year|date('Y') }} {{ car.brand.name}} {{car.model}}</a>
+                </h4>
+                <h5>{{ car.price}} &euro;</h5>
+                <h6>{{ car.city.name }}</h6>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">★ ★ ★ ★ ☆</small>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
 
 </div>
-
-
-
-<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis veritatis earum aut impedit repellat, dolorum totam deleniti nisi labore quisquam saepe debitis doloribus vel quasi voluptatem officia omnis, reprehenderit dicta? </p>
-
-{# à revoir
-     <div class="row">
-    <div class="col-lg-4 col-md-6 mb-4">
-        <div class="card h-100">
-        <link rel="icon" type="image/x-icon"  href="{{ asset('assets/images/logo.png') }}"/></div>
-    </div>
-</div> #}
-
 
 {% endblock %}
