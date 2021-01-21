@@ -1,0 +1,21 @@
+body {
+  background: rgb(136, 105, 105);
+  padding-top: 56px;
+}
+.logo-img {
+  height:50px;
+}
+
+.search-form-middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: auto;
+
+}
