@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CarRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Repository\CarRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
 /**
  * @ORM\Entity(repositoryClass=CarRepository::class)
  */
@@ -21,51 +22,62 @@ class Car
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $model;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank()
      */
     private $year;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
      */
     private $kilometers;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $licensePlate;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="car",cascade={"remove"})
      */
-    private $image = [];
+    private $images;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $engine;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\Positive()
      */
     private $seat;
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\NotBlank()
+     * @Assert\Positive()
      */
     private $horsePower;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $color;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $gearbox;
 
@@ -76,16 +88,20 @@ class Car
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Positive()
      */
     private $price;
 
@@ -135,6 +151,8 @@ class Car
         $this->isPublished = false;
         $this->rentals = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->images = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -186,18 +204,6 @@ class Car
     public function setLicensePlate(string $licensePlate): self
     {
         $this->licensePlate = $licensePlate;
-
-        return $this;
-    }
-
-    public function getImage(): ?array
-    {
-        return $this->image;
-    }
-
-    public function setImage(array $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -436,6 +442,37 @@ class Car
             // set the owning side to null (unless already changed)
             if ($comment->getCar() === $this) {
                 $comment->setCar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getCar() === $this) {
+                $image->setCar(null);
             }
         }
 

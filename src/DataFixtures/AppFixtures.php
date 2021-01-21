@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use Faker;
+use App\Entity\City;
+use App\Entity\Brand;
 use App\Entity\Category;
 use Doctrine\DBAL\Connection;
 use App\DataFixtures\CustomProvider;
-use App\Entity\Brand;
 use Nelmio\Alice\Loader\NativeLoader;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -75,6 +76,16 @@ class AppFixtures extends Fixture
             $newBrandName = new Brand();
             $newBrandName->setName($brandName);
             $em->persist($newBrandName);
+        }
+
+        // Recupère la liste des départments du Provider
+        $departmentsList = $faker->departments();
+        // dd($categoriesList);
+        foreach($departmentsList as $postalCode => $department) {
+            $newCity = new City();
+            $newCity->setName($department);
+            $newCity->setPostalCode($postalCode);
+            $em->persist($newCity);
         }
         
         //enregistre

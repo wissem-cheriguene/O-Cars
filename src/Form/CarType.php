@@ -34,6 +34,9 @@ class CarType extends AbstractType
             ])
             ->add('year', DateType::class, [
                 'label'  => 'Année de sortie',
+                'html5' => false,
+                'widget' => 'single_text',
+                'format' => 'y',
             ])
             ->add('kilometers', NumberType::class, [
                 'label'  => 'Kilométrage',
@@ -41,12 +44,12 @@ class CarType extends AbstractType
             ->add('licensePlate', TextType::class, [
                 'label'  => 'Plaque d\'immatriculation',
             ])
-            ->add('image', FileType::class, [
-                'label'  => 'Ajoutez des images du véhicule',
+            ->add('images', FileType::class, [
+                'mapped' => false,
+                'label'  => 'Ajoutez des photos du véhicule',
                 'multiple' => true,
                 'attr'     => [
                     'accept' => 'image/*',
-                    'multiple' => 'multiple'
                 ]
             ])
             ->add('engine', ChoiceType::class, [
@@ -99,7 +102,6 @@ class CarType extends AbstractType
                 // uses the Brand.username property as the visible option string
                 'choice_label' => 'name',
             ])
-            ->add('save', SubmitType::class)
         ;
     }
 
