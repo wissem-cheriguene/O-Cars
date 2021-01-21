@@ -2,9 +2,24 @@
 
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
 
-<h3> Bienvenue sur la page de nos voitures!</h3>
+<div class="container">
+    <h3> Bienvenue sur la page de nos voitures!</h3>
+
+    {% for car in cars %}
+        <div> modele:{{ car.model }}, couleur: {{car.color}}, nombre de places: {{car.seat}}</div>
+    {% endfor %}
+
+    {% for brand in brand %}
+        <div>{{brand.name}}</div>
+    {% endfor %}
+
+</div>
+
+
 
 <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis veritatis earum aut impedit repellat, dolorum totam deleniti nisi labore quisquam saepe debitis doloribus vel quasi voluptatem officia omnis, reprehenderit dicta? </p>
 

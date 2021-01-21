@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\BrandRepository;
+use App\Repository\CarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,15 +42,27 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/voiture", name="cars_list")
+     * @Route("/voitures", name="cars_list")
      */
-    public function carsList(): Response
+    public function carsList(CarRepository $carRepository, BrandRepository $brandRepository): Response
     {
+             // Toutes les voitures
+             $car = $carRepository->findAll(['model' => 'ASC']);
+
+             
+
+             // Toutes les marques
+             $brand = $brandRepository->findAll(['name' => 'ASC']);
+
+             dump($brand);
+
         return $this->render('main/cars_list.html.twig',[
             'controller_name' => 'MainController',
+            'cars' => $car,
+            'brand' => $brand,
         ]);
+        
     }
-
     /**
      * @Route("/voiture/{id}, name="car")
      */
