@@ -11,3 +11,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: auto;
+
+}
