@@ -93,7 +93,21 @@
       </div>
     </div>
   </div>
+  {# Formulaire de reservation #}
+  <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Dates de réservation</label>
+    <input class="flatpickr" type="text" placeholder="Choisissez vos dates">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 </div>
-
+<script>
+    flatpickr(".flatpickr", 
+    {
+      mode: "range",
+      minDate: "today"
+    });
+</script>
 
 {% endblock %}
