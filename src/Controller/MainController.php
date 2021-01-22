@@ -8,6 +8,7 @@ use App\Form\RentalType;
 use App\Repository\CarRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ImagesRepository;
+use App\Repository\RentalRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,15 +68,14 @@ class MainController extends AbstractController
      * Affichage d'une annonce
      * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    public function car(Car $car, Request $request): Response
+    public function car(Car $car, Request $request, RentalRepository $rentalRepository): Response
     {
         $rental = new Rental();
         $form = $this->createForm(RentalType::class, $rental);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // On récupère les images transmises
-            $data = $form->getData();
+            
+            // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
             // dd($data);
 
@@ -86,16 +86,20 @@ class MainController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Voiture enregistrée!'
+                'Location enregistrée!'
             );
 
             // toujours rediriger vers une page après un POST réussi
             return $this->redirectToRoute('cars_list');
         } 
 
+
+
         return $this->render('main/car.html.twig',[
             'car' => $car,
             'form' => $form->createView(),
+            // Recupérer les rentals en BDD et les envoyées à la vue
+            'rentals' => $rentalRepository->findRentalsByCar($car)
         ]);
     }
 }

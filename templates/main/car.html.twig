@@ -4,6 +4,17 @@
 
 {% block body %}
 
+{% set rentalsArr = [] %}
+{% for rental in rentals %}
+  {% set rental = {
+      from: rental.startingDate|date("Y-m-d"),
+      to: rental.endingDate|date("Y-m-d"),
+  } %}
+  {% set rentalsArr = rentalsArr|merge([rental]) %}
+{% endfor %}
+  {%dump(rentalsArr)%}
+<div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
+
 <div class="container mt-5">
   <div class="row">
     {# Info de l'annonce  #}
@@ -100,22 +111,22 @@
 {{ form_end(form) }}
 </div>
 <script>
-    flatpickr("#rental_endingDate,#rental_startingDate", 
-      {
-        minDate: "today",
-        dateFormat: "Y-m-d H:i",
-        disable: [
-            {
-                from: "2025-04-01",
-                to: "2025-05-01"
-            },
-            {
-                from: "2025-09-01",
-                to: "2025-12-01"
-            }
-        ]
-      }
-    );
+
+  document.addEventListener('DOMContentLoaded', function() {
+      var rentalsEl = document.querySelector('.rentals');
+      var rentalsArr = rentalsEl.dataset.rentals;
+      console.log(rentalsArr);
+      rentalsObj = JSON.parse(rentalsArr);
+      
+      // https://stackoverflow.com/questions/58562896/symfony-4-flatpickr-parse-date
+      flatpickr("#rental_endingDate,#rental_startingDate", 
+        {
+          minDate: "today",
+          dateFormat: "Y-m-d H:i",
+          disable: rentalsObj,
+        }
+      );
+    });
 </script>
 
 {% endblock %}

@@ -13,6 +13,7 @@ class RentalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // https://stackoverflow.com/questions/58562896/symfony-4-flatpickr-parse-date
         $builder
             ->add('startingDate', DateTimeType::class, [
                 'label' => "Date de début",
