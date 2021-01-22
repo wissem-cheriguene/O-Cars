@@ -1,0 +1,18 @@
+{% extends "emails/base.email.twig" %}
+
+{% block body %}
+    Bonjour {{ user.lastname }} {{ user.firstname }},
+    <br>
+
+        Vous pouvez récupérer votre mot de passe en cliquant sur le lien ci-dessous<br>
+    <b>Attention ce lien n'est valable qu'une seule fois. Si il ne fonctionne plus vous devez recommencer la récupération du mot de passe.</b>
+    </p>
+
+
+
+
+    <br>
+    <a href="{{ absolute_url(path('app_register_verification_recup',{email:user.email, token:user.token, redirect:'mot-de-passe'}) ) }}">cliquez ici</a>
+
+
+{% endblock %}
