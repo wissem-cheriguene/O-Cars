@@ -3,7 +3,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% dump(car)%}
+
 <div class="container mt-5">
   <div class="row">
     {# Info de l'annonce  #}
@@ -104,10 +104,11 @@
 </div>
 <script>
     flatpickr(".flatpickr", 
-    {
-      mode: "range",
-      minDate: "today"
-    });
+      {
+        mode: "range",
+        minDate: "today"
+      }
+    );
 </script>
 
 {% endblock %}
