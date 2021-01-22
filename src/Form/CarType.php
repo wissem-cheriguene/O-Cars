@@ -71,11 +71,11 @@ class CarType extends AbstractType
                 'label'  => 'Couleur(s) du véhicule',
             ])
             ->add('gearbox', ChoiceType::class, [
-                'label'  => 'Types de boîtes de vitesses',
+                'label'  => 'Transmission',
                 'choices'  => [
-                    'Manuelle' => 'manuelle',
-                    'Automatique' => 'automatique',
-                    'Séqentielle' => 'seqentielle',
+                    'propulsion' => 'Propulsion',
+                    'traction' => 'Traction',
+                    'integrale' => '4x4',
                 ],
             ])
             ->add('title', TextType::class, [
