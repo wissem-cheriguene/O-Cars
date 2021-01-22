@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue - Ocars{% endblock %}
+
+{% block body %}
+
+    <div class="container-sm">
+
+        <h1><span class="souligne"> Valider</span> son incription</h1>
+
+
+<p>
+    Merci de suivre le lien dans votre boite de récetion pour finaliser votre inscription.
+</p>
+
+        <div class="row">
+
+            {% for message in app.flashes('success') %}
+                <br>
+                <div class="alert alert-success centrer shadowJm" style="font-size: 22px">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
+

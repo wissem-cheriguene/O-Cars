@@ -1,0 +1,20 @@
+{% extends "emails/base.email.twig" %}
+
+{% block body %}
+    Bonjour {{ user.lastname }} {{ user.firstname }},
+    <br>
+
+        Merci de vérifier votre adresse mail pour terminer l'inscription en cliquant sur le lien ci-dessous<br>
+
+    <b>Attention ce lien n'est valable qu'une seule fois pour valider l'inscription.</b>
+    </p>
+
+
+
+
+
+    <br>
+    <a href="{{ absolute_url(path('app_register_verification',{email:user.email, token:user.token}) ) }}">cliquez ici</a>
+
+
+{% endblock %}
