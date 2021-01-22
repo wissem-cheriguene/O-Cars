@@ -94,19 +94,26 @@
     </div>
   </div>
   {# Formulaire de reservation #}
-  <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Dates de réservation</label>
-    <input class="flatpickr" type="text" placeholder="Choisissez vos dates">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
 </div>
 <script>
-    flatpickr(".flatpickr", 
+    flatpickr("#rental_endingDate,#rental_startingDate", 
       {
-        mode: "range",
-        minDate: "today"
+        minDate: "today",
+        dateFormat: "Y-m-d H:i",
+        disable: [
+            {
+                from: "2025-04-01",
+                to: "2025-05-01"
+            },
+            {
+                from: "2025-09-01",
+                to: "2025-12-01"
+            }
+        ]
       }
     );
 </script>
