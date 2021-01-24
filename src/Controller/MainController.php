@@ -70,15 +70,22 @@ class MainController extends AbstractController
      */
     public function car(Car $car, Request $request, RentalRepository $rentalRepository): Response
     {
+        // On instancie une rental que l'on va remplir en POST ) avec le createForm
         $rental = new Rental();
         $form = $this->createForm(RentalType::class, $rental);
-        // dd($request);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // dd($request);
             // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
+
+            // Calcul de la facture = prix de la loc par jour * nbr de jour de location
+            $price = $car->getPrice();
+            $diff = $rental->getEndingDate()->diff($rental->getStartingDate())->format("%a");
+            $diff = intval($diff) + 1;
+            // dd($diff);
+            $rental->setBilling($diff * $price);
 
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
