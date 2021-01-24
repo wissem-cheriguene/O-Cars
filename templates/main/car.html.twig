@@ -110,20 +110,34 @@
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 {{ form_end(form) }}
 </div>
-<script>
 
+<script>
   document.addEventListener('DOMContentLoaded', function() {
       var rentalsEl = document.querySelector('.rentals');
       var rentalsArr = rentalsEl.dataset.rentals;
       console.log(rentalsArr);
       rentalsObj = JSON.parse(rentalsArr);
-      
+
+      // flatpickr("#rental_startingDate",{
+      //     "plugins": [new rangePlugin({ input: "#rental_endingDate"})]
+      // });
+      document.getElementById('rental_endingDate').type = "text";
+
       // https://stackoverflow.com/questions/58562896/symfony-4-flatpickr-parse-date
-      flatpickr("#rental_endingDate,#rental_startingDate", 
+      flatpickr(".flatpickr", 
         {
+          plugins: [new rangePlugin({ input: "#rental_endingDate",})],
           minDate: "today",
-          dateFormat: "Y-m-d H:i",
+          altInput: true,
+          altFormat: "Y-m-d",
           disable: rentalsObj,
+          onChange: function(selectedDates, dateStr, instance) {
+              //...
+              const dateArr = selectedDates.map(date => this.formatDate(date, "Y-m-d"));
+              document.getElementById('rental_endingDate').value = dateArr[1];
+              document.getElementById('rental_startingDate').value = dateArr[0];
+              console.log(selectedDates, dateArr[0]);
+          },
         }
       );
     });

@@ -17,16 +17,23 @@ class RentalType extends AbstractType
         $builder
             ->add('startingDate', DateTimeType::class, [
                 'label' => "Date de début",
+                'format' => 'yyyy-MM-dd',
+                'html5' => false,
                 'widget' => 'single_text',
                 'attr'=> [
-                    'placeholder' => "Du"
+                    'placeholder' => "Du",
+                    "class" => "flatpickr"
                 ],
             ])
             ->add('endingDate', DateTimeType::class, [
                 'label' => "Date de fin",
+                'format' => 'yyyy-MM-dd',
+                'html5' => false,
                 'widget' => 'single_text',
                 'attr'=> [
-                    'placeholder' => "Au"
+                    'placeholder' => "Au",
+                    "class" => "flatpickr",
+                    "type" => 'text',
                 ],
             ])
         ;

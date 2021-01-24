@@ -72,12 +72,13 @@ class MainController extends AbstractController
     {
         $rental = new Rental();
         $form = $this->createForm(RentalType::class, $rental);
+        // dd($request);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // dd($request);
             // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
-            // dd($data);
 
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
