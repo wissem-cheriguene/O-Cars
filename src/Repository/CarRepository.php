@@ -22,29 +22,41 @@ class CarRepository extends ServiceEntityRepository
     // /**
     //  * @return Car[] Returns an array of Car objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function searchCar($criteria)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->leftJoin('c.brand', 'brand')
+            ->where('brand.name = :brandName')
+            ->setParameter('brandName', $criteria['brand']->getName())
+            ->andWhere('c.model LIKE :model')
+            ->setParameter('model', "%{$criteria['model']}%")
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
-    /*
-    public function findOneBySomeField($value): ?Car
+    
+    public function findLastThreeCarsByDate() 
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+    // https://github.com/doctrine/orm/issues/5479
+    public function findRandomCars() 
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->orderBy('rand')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 }

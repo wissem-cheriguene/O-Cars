@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Entity\Rental;
 use App\Form\RentalType;
+use App\Form\SearchCarType;
 use App\Repository\CarRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ImagesRepository;
@@ -19,13 +20,27 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(CarRepository $carRepository, ImagesRepository $imagesRepository): Response
+    public function index(CarRepository $carRepository, Request $request): Response
     {
-        $cars = $carRepository->findAll();
-        $images = $imagesRepository->findAll();
-        dump($images);
+        // Formulaire de recherche de voiture
+        //https://www.youtube.com/watch?v=_75fDJITerA
+        $searchCarForm = $this->createForm(SearchCarType::class);
+        if( $searchCarForm->handleRequest($request)->isSubmitted() && $searchCarForm->isValid() ) {
+           
+            $criteria = $searchCarForm->getData(); 
+            $cars = $carRepository->searchCar($criteria);
+            return $this->render('main/cars_list.html.twig',[
+                'cars' => $cars,
+            ]);
+        }
+        // https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
+        $carsSlider = $carRepository->findRandomCars();
+        $carsLastThree = $carRepository->findLastThreeCarsByDate();
+        dump($carsSlider);
         return $this->render('main/index.html.twig', [
-            'cars' => $cars,
+            'carsSlider' => $carsSlider,
+            'carsLastThree' => $carsLastThree,
+            'search_form' => $searchCarForm->createView(),
         ]);
     }
 
@@ -54,8 +69,9 @@ class MainController extends AbstractController
      * Liste des voitures 
      * @Route("/voitures", name="cars_list")
      */
-    public function carsList(CarRepository $carRepository): Response
+    public function carsList(CarRepository $carRepository, Request $request): Response
     {
+        
         // Toutes les voitures
         $car = $carRepository->findAll(['model' => 'ASC']);
 
