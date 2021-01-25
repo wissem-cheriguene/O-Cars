@@ -10,6 +10,8 @@ use App\Entity\Category;
 use Doctrine\DBAL\Connection;
 use App\DataFixtures\CustomProvider;
 use App\Entity\Images;
+use App\Entity\Rental;
+use DateTime;
 use Nelmio\Alice\Loader\NativeLoader;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -128,6 +130,28 @@ class AppFixtures extends Fixture
             $image->setCar($car);
             $em->persist($image);
         }
+
+        // On ajoute des rental aux voitures
+        foreach($cars as $car) {
+            $start = new DateTime();
+            $end = $faker->dateTimeInInterval('+30 days');
+            $diff = $start->diff($end)->format("%a");
+            $price = $car->getPrice();
+            $diff = intval($diff) + 1;
+
+
+            $rental = new Rental();
+            $rental->setStartingDate($start);
+            $rental->setEndingDate($end);
+            $rental->setBilling($diff * $price);       
+            $rental->setCar($car);
+            dump($rental);
+            $em->persist($rental);
+        }
+        
+        
+        
+        
         //enregistre
         $em->flush();
     }

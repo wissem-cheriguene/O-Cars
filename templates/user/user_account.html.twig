@@ -22,6 +22,7 @@
     </div>
     </div>
   </div>
+  {# Mes annonces pour le profil proprio #}
   <div class="row mt-5">
     <table class="table table-striped table-dark">
         <thead>
@@ -36,6 +37,36 @@
                 <tr>
                     <th scope="row">{{index + 1}}</th>
                     <td>{{ car.title }}</td>
+                    <td><a href="{{ path('car_edit', {id: car.id}) }}" class="card-link">Modifier</a></td>
+                    <td>
+                        <form action="{{ path('car_delete', {id:car.id}) }}" method="post">
+                            <input type="hidden" name="token" value="{{ csrf_token('delete-car') }}" />
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  {# Mon historique d'achat / factures pour le profil locataire #}
+  <div class="row mt-5">
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+            <th scope="col">Mon historique d'achat</th>
+            <th scope="col">Mes locations</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index,rental in rentals %}
+                <tr>
+                    <th scope="row">{{index + 1}}</th>
+                    <td>{{ rental.car.title }}</td>
                     <td><a href="{{ path('car_edit', {id: car.id}) }}" class="card-link">Modifier</a></td>
                     <td>
                         <form action="{{ path('car_delete', {id:car.id}) }}" method="post">
