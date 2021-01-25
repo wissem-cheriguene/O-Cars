@@ -59,7 +59,9 @@
             <tr>
             <th scope="col">Mon historique d'achat</th>
             <th scope="col">Mes locations</th>
-            <th scope="col"></th>
+            <th scope="col">Du</th>
+            <th scope="col">Au</th>
+            <th scope="col">Prix</th>
             </tr>
         </thead>
         <tbody>
@@ -67,7 +69,10 @@
                 <tr>
                     <th scope="row">{{index + 1}}</th>
                     <td>{{ rental.car.title }}</td>
-                    <td><a href="{{ path('car_edit', {id: car.id}) }}" class="card-link">Modifier</a></td>
+                    <td>{{ rental.startingDate|date('Y-m-d') }}</td>
+                    <td>{{ rental.endingDate|date('Y-m-d') }}</td>
+                    <td>{{ rental.billing }} €</td>
+                    {# <td><a href="{{ path('car_edit', {id: car.id}) }}" class="card-link">Modifier</a></td>
                     <td>
                         <form action="{{ path('car_delete', {id:car.id}) }}" method="post">
                             <input type="hidden" name="token" value="{{ csrf_token('delete-car') }}" />
@@ -76,7 +81,7 @@
                                 Supprimer
                             </button>
                         </form>
-                    </td>
+                    </td> #}
                 </tr>
             {% endfor %}
         </tbody>
