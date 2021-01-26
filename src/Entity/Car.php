@@ -45,7 +45,7 @@ class Car
     private $licensePlate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="car",cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="car",cascade={"remove","persist"})
      */
     private $images;
 
