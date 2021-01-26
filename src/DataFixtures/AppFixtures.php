@@ -36,24 +36,6 @@ class AppFixtures extends Fixture
         // etc.
     }
 
-    // public function load(ObjectManager $em)
-    // {
-    //     // On va truncate nos tables à la main pour revenir à id=1
-    //     $this->truncate($em->getConnection());
-
-    //     $loader = new MyCustomNativeLoader();
-        
-    //     //importe le fichier de fixtures et récupère les entités générés
-    //     $entities = $loader->loadFile(__DIR__.'/fixtures.yml')->getObjects();
-        
-    //     //empile la liste d'objet à enregistrer en BDD
-    //     foreach ($entities as $entity) {
-    //         $em->persist($entity);
-    //     };
-        
-    //     //enregistre
-    //     $em->flush();
-    // }
 
     public function load(ObjectManager $em)
     {
@@ -63,9 +45,11 @@ class AppFixtures extends Fixture
         // On récupère une instance de Faker
         $faker = Faker\Factory::create('fr_FR');
         
-        // Notre provider
+        // Nos providers
         $faker->addProvider(new CustomProvider());
-        
+        // LoremFlickr provider (image)
+        $faker->addProvider(new \Xvladqt\Faker\LoremFlickrProvider($faker));
+
         $faker->addProvider(new Faker\Provider\ms_MY\Miscellaneous($faker));
         // Recupère la liste des catégories du Provider
         $categoriesList = $faker->carCategories();
@@ -126,7 +110,7 @@ class AppFixtures extends Fixture
         // On ajoute une image pour chaque voiture
         foreach ($cars as $car) {
             $image = new Images();
-            $image->setName("https://source.unsplash.com/300x300/?cars," . $faker->unique()->carBrandName() . "/");
+            $image->setName($faker->unique()->imageUrl($width = 300, $height = 300, ['cars']));
             $image->setCar($car);
             $em->persist($image);
         }

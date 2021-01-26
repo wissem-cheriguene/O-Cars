@@ -1,43 +1,31 @@
 {% extends 'base.html.twig' %}
 {% block title %}Se connecter!{% endblock %}
 
+{# CSS class de bootstrap qui sert à centrer le contenu de la page  #}
+{% block centerContent %}d-flex align-items-center justify-content-center{% endblock %}
+
 {% block body %}
 
-    <div class="fushbandeau">
-        <div class="bloc colon12Marge2">
-            <div class="container-sm bottomJM ">
-    <h1 class="centrer txtRouges ">Se connecter!</h1>
+<div class="container bg-dark p-3">
+    <h1>Se connecter!</h1>
 
-    <form action="{{ path('app_login') }}" class="form-signin" method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-        <label for="inputEmail" class="sr-only">Courriel</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Courriel  (Email)" required autofocus>
-        <label for="inputPassword" class="sr-only">Mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-
-    <div class="log">
-        <button class="logg btn-lg btn-primary " type="submit">
-                Se connecter
-            </button>
-    </div>
-    </form>
-
-                <a href="{{ path('app_forgotten_password') }}">Récupérer son mot de passe</a>
-
-
-
+        <form action="{{ path('app_login') }}" class="form-signin" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Courriel</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Courriel  (Email)" required autofocus>
             </div>
-        </div>
-    <br>
-    <br>
-    </div>
-    {% block footer %}
-        <div class="full couleurFond">
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        </div>
-    {% endblock %}
+            <button class="logg btn-lg btn-primary d-block " type="submit">Se connecter</button>
+            <a href="{{ path('app_forgotten_password') }}">Récupérer son mot de passe</a>
+        </form>
+</div>
+
 {% endblock %}
