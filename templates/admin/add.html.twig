@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'une annonce{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Ajout d'une annonce</h1>
+        {# Formulaire d'ajout d'une annonce  #}
+        {% include "partials/_announce-form.html.twig" %}
+
+        <a href="{{path('user_account')}}">Retour vers la liste</a>
+    </div>
+{% endblock %}

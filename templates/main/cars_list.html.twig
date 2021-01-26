@@ -1,0 +1,34 @@
+{# Page de la liste des voitures #}
+
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+{% include "partials/_flash_msg.html.twig" %}
+<div class="container mt-5">
+    <h1 class="display-4"> Liste des véhicules :</h1>
+    <div class="row">
+        {% for car in cars %} 
+        {% dump(car) %}
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="{{ path('car', {id:car.id})}}"><img class="card-img-top" src={{ car.images.0.name }} alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{ path('car', {id:car.id})}}">{{ car.year|date('Y') }} {{ car.brand.name}} {{car.model}}</a>
+                </h4>
+                <h5>{{ car.price}} &euro;</h5>
+                <h6>{{ car.city.name }}</h6>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">★ ★ ★ ★ ☆</small>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

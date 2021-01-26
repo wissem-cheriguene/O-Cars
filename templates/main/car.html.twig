@@ -1,0 +1,146 @@
+{# Page d'une voiture #}
+{% block title %}{{car.title}}{% endblock %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% set rentalsArr = [] %}
+{% for rental in rentals %}
+  {% set rental = {
+      from: rental.startingDate|date("Y-m-d"),
+      to: rental.endingDate|date("Y-m-d"),
+  } %}
+  {% set rentalsArr = rentalsArr|merge([rental]) %}
+{% endfor %}
+  {%dump(rentalsArr)%}
+  {# Passer les dates de twig à JS (pour le calendrier) #}
+<div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
+
+<div class="container mt-5">
+  <div class="row">
+    {# Info de l'annonce  #}
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="card h-100">  
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ car.year|date('Y') }} {{ car.brand.name }} {{car.model}} <br><span class="badge badge-secondary ">{{ car.city.name }} ({{ car.city.postalCode }})</span> 
+            </h4>
+            <h5>{{ car.price}} &euro; par jour</h5>
+            <p class="card-text">{{ car.description }}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">★ ★ ★ ★ ☆</small>
+          </div>
+      </div>  
+    </div>
+    {# Caroussel d'image de la voiture  #}
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ car.images.0.name }}" class="d-block w-100" alt="{{ car.title }}">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  {# Caractéristique #}
+  <div class="row text-center">
+    <h2>Caractéristique</h2>
+    <div class="card-columns">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{car.gearbox}}</h5>
+          <p class="card-text">Boîte de vitesse</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.engine }}</h5>
+          <p class="card-text">Carburant</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.horsepower }} ch.</h5>
+          <p class="card-text">Puissance</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.kilometers }} km</h5>
+          <p class="card-text">Kilométrage</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.category.name }}</h5>
+          <p class="card-text">Catégorie</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.seat }}</h5>
+          <p class="card-text">Places</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ car.color }}</h5>
+          <p class="card-text">Couleur</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# Formulaire de reservation #}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var rentalsEl = document.querySelector('.rentals');
+      var rentalsArr = rentalsEl.dataset.rentals;
+      console.log(rentalsArr);
+      // Convertit du JSON en Javascript Objet qu'on envoie au calendar
+      rentalsObj = JSON.parse(rentalsArr);
+      
+      document.getElementById('rental_endingDate').type = "text";
+
+      // https://stackoverflow.com/questions/58562896/symfony-4-flatpickr-parse-date
+      // https://github.com/flatpickr/flatpickr/issues/584
+      flatpickr(".flatpickr", 
+        {
+          plugins: [new rangePlugin({ input: "#rental_endingDate",})],
+          minDate: "today",
+          altInput: true,
+          altFormat: "Y-m-d",
+          disable: rentalsObj,
+          onChange: function(selectedDates, dateStr, instance) {
+              //...
+              const dateArr = selectedDates.map(date => this.formatDate(date, "Y-m-d"));
+              document.getElementById('rental_endingDate').value = dateArr[1];
+              document.getElementById('rental_startingDate').value = dateArr[0];
+              console.log(selectedDates, dateArr[0]);
+          },
+        }
+      );
+    });
+</script>
+
+{% endblock %}
