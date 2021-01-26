@@ -22,19 +22,19 @@ class RentalRepository extends ServiceEntityRepository
     // /**
     //  * @return Rental[] Returns an array of Rental objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findRentalsByCar($car)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('r.startingDate','r.endingDate')
+            ->andWhere('r.car = :car')
+            ->setParameter('car', $car)
+            ->orderBy('r.startingDate', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Rental

@@ -136,7 +136,7 @@ class Car
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Rental::class, mappedBy="car")
+     * @ORM\OneToMany(targetEntity=Rental::class, mappedBy="car",cascade={"remove"})
      */
     private $rentals;
 

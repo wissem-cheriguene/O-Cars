@@ -2,16 +2,11 @@
 
 {% block body %}
 
+<div class="container mt-5 mb-5">
+    <a href="{{ path('app_register',{type:'locataire'}) }}" type="button" class="btn btn-primary btn-lg">Je souhaite pouvoir réserver des voitures</a>
 
-            <div>
-                <p>
-                    <a href="{{ path('app_register',{type:'locataire'}) }}">Je souhaite pouvoir réserver des voitures</a>
-                </p>
-                <p>
-                    <a href="{{ path('app_register',{type:'proprietaire'}) }}">Je souhaite proposer une ou plusieurs voitures à la location</a>
-                </p>
-            </div>
-
+    <a href="{{ path('app_register',{type:'proprietaire'}) }}" type="button" class="btn btn-secondary btn-lg">Je souhaite proposer une ou plusieurs voitures à la location</a>
+</div>
 
 {% endblock %}
 
