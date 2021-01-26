@@ -225,12 +225,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getStatus(): ?bool
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): self
+    public function setStatus(int $status): self
     {
         $this->status = $status;
 

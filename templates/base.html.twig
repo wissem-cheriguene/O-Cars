@@ -40,7 +40,9 @@
     {# Calendar  #}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/rangePlugin.js"></script>
     {# // <script src="{{ asset('js/main.js') }}"></script> #}
+    
     {% endblock %}
 
 
@@ -48,7 +50,7 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ path('homepage')}}">
                 <img class="logo-img" src="{{ asset('assets/images/logo.png') }}" alt="logo" />
@@ -68,10 +70,13 @@
                         <a class="nav-link" href="{{ path('about') }}">Nous contactez</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inscription</a>
+                        <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Connexion</a>
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('cars_list') }}">Liste des voitures</a>
                     </li>
                 </ul>
             </div>
@@ -80,9 +85,9 @@
     {% block body %}
     {% endblock %}
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; O'Cars 2020</p>
+    <footer class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="row container justify-content-center">
+            <p class="text-white">Copyright &copy; O'Cars 2020</p>
         </div>
         <!-- /.container -->
     </footer>

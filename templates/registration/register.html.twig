@@ -4,7 +4,7 @@
 
 {% block body %}
 
-
+<div class="container mt-5">
 <div class="fushbandeau">
 
     {% for flashError in app.flashes('verify_email_error') %}
@@ -51,4 +51,8 @@
     {% block footer %}
 
     {% endblock %}
+
+
+</div>
+
 {% endblock %}

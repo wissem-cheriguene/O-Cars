@@ -133,7 +133,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/inscritption", name="app_loginPage")
+     * @Route("/inscription", name="app_loginPage")
      */
     public function loginpage(){
         return $this->render('registration/registerpage.html.twig');
