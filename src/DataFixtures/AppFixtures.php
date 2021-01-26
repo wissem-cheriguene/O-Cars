@@ -3,20 +3,21 @@
 namespace App\DataFixtures;
 
 use Faker;
+use DateTime;
+use Generator;
 use App\Entity\Car;
 use App\Entity\City;
+use App\Entity\User;
 use App\Entity\Brand;
+use App\Entity\Images;
+use App\Entity\Rental;
 use App\Entity\Category;
 use Doctrine\DBAL\Connection;
 use App\DataFixtures\CustomProvider;
-use App\Entity\Images;
-use App\Entity\Rental;
-use DateTime;
 use Nelmio\Alice\Loader\NativeLoader;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Provider\ms_MY\Miscellaneous;
-use Generator;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
@@ -149,9 +150,38 @@ class AppFixtures extends Fixture
             $em->persist($rental);
         }
         
+        // User Owner
+        $user = new User();
+        $user->setEmail('owner@owner.com');
+        // php bin/console security:encode-password (admin)
+        $user->setPassword('$2y$13$A5TMRRF8MK.HiyF1RABsLunQ/OI/Y6IVJuTGu/xYYoktoU5pTwmZu');
+        $user->setStatus(1);
+        $user->setLastname('Dupont');
+        $user->setFirstname('Charles-xavier');
+        $user->setBirthdate(new DateTime('1978-08-05'));
+        $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
+        $user->setUsername('picsou1234');
+        $user->setRole('ROLE_PROPRIO');
+        $user->setImage('https://source.unsplash.com/150x150/?nature,water');
         
+                
+        // User Locataire
+        $user2 = new User();
+        $user2->setEmail('tenant@tenant.com');
+        //php bin/console security:encode-password (locataire)
+        $user2->setPassword('$2y$13$F9oGmWdFbpe9oZVZJjtUSOa2hfPmoDmjlECn2Xh7LShS2lJnz3yWW');
+        $user2->setStatus(1);
+        $user2->setLastname('Tartenpion');
+        $user2->setFirstname('Elisabeth');
+        $user2->setBirthdate(new DateTime('1967-06-23'));
+        $user2->setAddress('18 avenue des fleurs, 33000 Bordeaux');
+        $user2->setUsername('vivelesvoitures123');
+        $user2->setRole('ROLE_LOCATAIRE');
+        $user2->setImage('https://source.unsplash.com/150x150/?nature,water');
         
-        
+        $em->persist($user);
+        $em->persist($user2);
+
         //enregistre
         $em->flush();
     }
