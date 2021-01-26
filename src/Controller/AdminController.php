@@ -45,6 +45,7 @@ class AdminController extends AbstractController
                 $img->setName($fichier);
                 $car->addImage($img);
                 
+            
             }
 
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
