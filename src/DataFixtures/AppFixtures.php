@@ -162,6 +162,7 @@ class AppFixtures extends Fixture
         $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
         $user->setUsername('picsou1234');
         $user->setRole('ROLE_PROPRIO');
+        $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
         $user->setImage('https://source.unsplash.com/150x150/?nature,water');
         
                 
@@ -177,6 +178,7 @@ class AppFixtures extends Fixture
         $user2->setAddress('18 avenue des fleurs, 33000 Bordeaux');
         $user2->setUsername('vivelesvoitures123');
         $user2->setRole('ROLE_LOCATAIRE');
+        $user2->setRoles(['ROLE_LOCATAIRE']);
         $user2->setImage('https://source.unsplash.com/150x150/?nature,water');
         
         $em->persist($user);
