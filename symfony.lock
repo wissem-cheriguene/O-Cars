@@ -592,5 +592,8 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "xvladqt/faker-lorem-flickr": {
+        "version": "v1.0.0"
     }
 }
