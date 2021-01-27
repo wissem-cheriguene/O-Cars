@@ -85,7 +85,7 @@ class MainController extends AbstractController
      * Affichage d'une annonce
      * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user): Response
+    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user = null): Response
     {
         // On instancie une rental que l'on va remplir en POST ) avec le createForm
         $rental = new Rental();

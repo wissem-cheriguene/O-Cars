@@ -2,31 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
 use DateTime;
+use function dd;
+use App\Entity\User;
+use function in_array;
+use function date_date_set;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
-use phpDocumentor\Reflection\Types\Null_;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType;
+use phpDocumentor\Reflection\Types\Null_;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use function date_date_set;
-use function dd;
-use function in_array;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -53,13 +54,15 @@ class RegistrationFormType extends AbstractType
 
         $builder
             ->add('email')
-            ->add('lastname',TextType::class, array('label' => 'Prénom'))
-            ->add('firstName',TextType::class, array('label' => 'Nom'))
-            ->add('birthdate', BirthdayType::class, [
+            ->add('lastname',TextType::class, array('label' => 'Nom'))
+            ->add('firstname',TextType::class, array('label' => 'Prénom'))
+            ->add('username',TextType::class, array('label' => 'Pseudo'))
+            ->add('birthdate', DateType::class, [
                 'label' => 'Date de naissance',
                 'placeholder' =>[
                  'year' => 'année', 'month' => 'Mois', 'day' => 'Jour',
-                ]
+                ],
+                'invalid_message' => 'Valeur incorrect'
             ])
             ->add('address',TextType::class, ['label'=>'Adresse'])
             ->add('agreeTerms', CheckboxType::class, [
@@ -103,7 +106,6 @@ class RegistrationFormType extends AbstractType
             'data_class' => User::class,
             'which_role'=> null,
             'emailEnfant'=> null
-
         ]);
     }
 }
