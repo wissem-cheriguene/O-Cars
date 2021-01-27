@@ -43,7 +43,7 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/register/{type}", name="app_register", requirements={
-     *     "type"="proprietaire|locataire"
+     *     "type"="proprietaire|locataire|admin"
      * })
      *
      */

@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container position-relative mt-3">
-    <div class="position-absolute">
+<div class="hero-banner">
+    <div class="hero-baseline">
       <h1>Partez O'Cars de tour !</h1>
     </div>
-    <img src="https://source.unsplash.com/1600x300/?cars,bmw" class="img-fluid" alt="Responsive image">
-    {# <form class="form-inline my-2 my-lg-0 position-absolute search-form-middle">
-      <input class="form-control mr-sm-2" type="text" placeholder="Entrez votre modèle ou marque de voiture...">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form> #}
+    {# {{ form(search_form, {'attr': {'novalidate': 'novalidate', 'class': 'hero-search-form'}}) }} #}
+    {{ form_start(search_form, {attr: {class: 'hero-search-form', novalidate: 'novalidate'}}) }}
 
-    {{ form(search_form, {'attr': {'novalidate': 'novalidate', 'class': 'col-md-6 mt-5'}}) }}
+        {{ form_row(search_form.model) }}
+        {{ form_row(search_form.brand) }}
+
+
+      <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+
+    {{ form_end(search_form) }}
 </div>
 <div class="container d-flex justify-content-center">
   <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
@@ -41,8 +44,8 @@
   </div>
 
 </div>
-<div class="row container justify-content-center">
-  <h2>Nos dernières annonces</h2>
+<div class="container d-flex justify-content-center">
+  <h2 class="text-primary">Nos dernières annonces</h2>
 </div>
 <div class="container d-flex justify-content-center">
   <div class="row">

@@ -26,7 +26,6 @@ class SearchCarType extends AbstractType
             // uses the Brand.username property as the visible option string
             'choice_label' => 'name',
         ])
-            ->add('rechercher', SubmitType::class)
         ;
     }
 

@@ -18,6 +18,7 @@ class User implements UserInterface
 
     const ROLE_PROPRIO = "ROLE_PROPRIO";
     const ROLE_LOCATAIRE = "ROLE_LOCATAIRE";
+    const ROLE_ADMIN = "ROLE_ADMIN";
 
 
     const STATUS_ACTIF = 1;
@@ -148,6 +149,7 @@ class User implements UserInterface
         $this->rentals = new ArrayCollection();
         $this->proprio = new ArrayCollection();
         $this->locataire = new ArrayCollection();
+        $this->admin = new ArrayCollection();
     }
 
 
@@ -155,6 +157,7 @@ class User implements UserInterface
         switch ($string){
             case "proprietaire" : return self::ROLE_PROPRIO;
             case "locataire" : return self::ROLE_LOCATAIRE;
+            case "admin" : return self::ROLE_ADMIN;
             default: return "";
 
         }
