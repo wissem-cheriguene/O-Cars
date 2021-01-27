@@ -50,3 +50,12 @@ body {
 .form-group > label {
   color: #fafafa;
 }
+
+.user-name {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.custom-file-label {
+  color:blue;
+}

@@ -3,11 +3,23 @@
 {% block title %}Ajout d'une annonce{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="container pt-5 bg-dark">
         <h1>Ajout d'une annonce</h1>
         {# Formulaire d'ajout d'une annonce  #}
         {% include "partials/_announce-form.html.twig" %}
 
         <a href="{{path('user_account')}}">Retour vers la liste</a>
     </div>
+
+<script type="application/javascript">
+    // $('input[type="file"]').change(function(e){
+    //     var fileNames = e.target.files;
+    //     console.log(fileNames[0].name);
+    //     $('.custom-file-label').html(fileNames[0].name);
+        
+    // });
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+    })
+</script>
 {% endblock %}
