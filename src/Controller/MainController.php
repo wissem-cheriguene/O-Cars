@@ -34,14 +34,24 @@ class MainController extends AbstractController
             ]);
         }
         // https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
-        $carsSlider = $carRepository->findRandomCars();
         $carsLastThree = $carRepository->findLastThreeCarsByDate();
-        dump($carsSlider);
         return $this->render('main/index.html.twig', [
-            'carsSlider' => $carsSlider,
             'carsLastThree' => $carsLastThree,
             'search_form' => $searchCarForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/redirect", name="app_redirect")
+     */
+    public function redirection(){
+        $user = $this->getUser();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('administrateur');
+        }
+        return $this->redirectToRoute('homepage');
+
     }
 
     /**

@@ -47,16 +47,5 @@ class CarRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    // https://github.com/doctrine/orm/issues/5479
-    public function findRandomCars() 
-    {
-        return $this->createQueryBuilder('c')
-            ->addSelect('RAND() as HIDDEN rand')
-            ->orderBy('rand')
-            ->setMaxResults(3)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
     
 }

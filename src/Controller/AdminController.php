@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Car;
+use App\Entity\User;
+use App\Form\AdminUserModifType;
 use App\Form\CarType;
 use App\Entity\Images;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +17,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
+    /**
+     * @Route("/back", name="administrateur")
+     */
+    public function adminIndex(){
+        return $this->render('admin/index.html.twig');
+
+
+    }
+
+
     /**
      * @Route("/back/voiture/ajout", name="car_add", methods={"GET","POST"})
      */
@@ -125,4 +138,88 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('user_account');
     }
+
+    /**
+     * @Route("/back/users", name="admin_users_index")
+     * @param UserRepository $UserRepository
+     */
+    public function listUser(UserRepository $UserRepository)
+    {
+        $users = $UserRepository->findAll();
+
+        return $this->render('admin/listUsers.html.twig',[
+            'users' => $users,
+
+        ]);
+    }
+
+
+    /**
+     * @Route("/back/users/modifier/{id}", name="admin_users_edit")
+     */
+    public function editUser(User $user, Request $request)
+    {
+
+        $form =$this->createForm(AdminUserModifType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash(
+                'success',
+                "L'utilisateur à été modifiée"
+            );
+
+            $id = $user->getId();
+
+            return $this->redirectToRoute('admin_users_edit',[
+                "id"=> $id
+            ]);
+        }
+
+
+        $id = $user->getId();
+
+        return $this->render('admin/usersEdit.html.twig',[
+            'form' => $form->createView(),
+            'user'=>$user,
+            "id"=> $id
+        ]);
+    }
+
+    /**
+     * @Route("/back/Users/delete/{id}", name="admin_users_delete")
+     */
+    public function deleteUser(User $user, Request $request)
+    {
+
+        if ($user->hasRole('ROLE_ADMIN')) {
+            $this->addFlash(
+                'danger',
+                "Un administrateur ne peut pas etre modifié"
+            );
+
+            return $this->redirectToRoute('admin_users_index');
+        }
+
+        $em= $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            "L'utilisateur à été supprimé"
+        );
+
+
+        return $this->redirectToRoute('admin_users_index');
+
+    }
+
+
 }
