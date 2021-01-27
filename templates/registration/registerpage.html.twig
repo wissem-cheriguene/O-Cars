@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{# CSS class de bootstrap qui sert à centrer le contenu de la page  #}
+{% block centerContent %}d-flex align-items-center justify-content-center{% endblock %}
+
 {% block body %}
 
-<div class="container mt-5 mb-5">
-    <a href="{{ path('app_register',{type:'locataire'}) }}" type="button" class="btn btn-primary btn-lg">Je souhaite pouvoir réserver des voitures</a>
+<div>
+    <a href="{{ path('app_register',{type:'locataire'}) }}" type="button" class="btn btn-primary btn-lg">Louer une voiture</a>
 
-    <a href="{{ path('app_register',{type:'proprietaire'}) }}" type="button" class="btn btn-secondary btn-lg">Je souhaite proposer une ou plusieurs voitures à la location</a>
+    <a href="{{ path('app_register',{type:'proprietaire'}) }}" type="button" class="btn btn-secondary btn-lg">Proposer ma voiture</a>
 </div>
 
 {% endblock %}
