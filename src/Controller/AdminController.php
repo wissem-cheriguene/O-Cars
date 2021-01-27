@@ -5,26 +5,29 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Form\CarType;
 use App\Entity\Images;
+use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/back/voiture/ajout", name="car_add", methods={"GET","POST"})
      */
-    public function add(Request $request): Response
+    public function add(Request $request, UserInterface $user): Response
     {
         $car = new Car();
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
+            $car->setUser($user);
             // On récupère les images transmises
             $images = $form->get('images')->getData();
 
@@ -41,6 +44,8 @@ class AdminController extends AbstractController
                 $img = new Images();
                 $img->setName($fichier);
                 $car->addImage($img);
+                
+            
             }
 
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd

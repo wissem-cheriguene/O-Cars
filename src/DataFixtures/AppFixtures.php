@@ -3,20 +3,21 @@
 namespace App\DataFixtures;
 
 use Faker;
+use DateTime;
+use Generator;
 use App\Entity\Car;
 use App\Entity\City;
+use App\Entity\User;
 use App\Entity\Brand;
+use App\Entity\Images;
+use App\Entity\Rental;
 use App\Entity\Category;
 use Doctrine\DBAL\Connection;
 use App\DataFixtures\CustomProvider;
-use App\Entity\Images;
-use App\Entity\Rental;
-use DateTime;
 use Nelmio\Alice\Loader\NativeLoader;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Provider\ms_MY\Miscellaneous;
-use Generator;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
@@ -51,6 +52,45 @@ class AppFixtures extends Fixture
         $faker->addProvider(new \Xvladqt\Faker\LoremFlickrProvider($faker));
 
         $faker->addProvider(new Faker\Provider\ms_MY\Miscellaneous($faker));
+
+        $proprio = [];
+        $locataire = [];
+
+        // User Propriétaire
+        $user = new User();
+        $user->setEmail('owner@owner.com');
+        // php bin/console security:encode-password (admin)
+        $user->setPassword('$2y$13$A5TMRRF8MK.HiyF1RABsLunQ/OI/Y6IVJuTGu/xYYoktoU5pTwmZu');
+        $user->setStatus(1);
+        $user->setLastname('Dupont');
+        $user->setFirstname('Charles-xavier');
+        $user->setBirthdate(new DateTime('1978-08-05'));
+        $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
+        $user->setUsername('picsou1234');
+        $user->setRole('ROLE_PROPRIO');
+        $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
+        $user->setImage('https://source.unsplash.com/150x150/?nature,water');
+        $proprio[] = $user;
+                
+        // User Locataire
+        $user2 = new User();
+        $user2->setEmail('tenant@tenant.com');
+        //php bin/console security:encode-password (locataire)
+        $user2->setPassword('$2y$13$F9oGmWdFbpe9oZVZJjtUSOa2hfPmoDmjlECn2Xh7LShS2lJnz3yWW');
+        $user2->setStatus(1);
+        $user2->setLastname('Tartenpion');
+        $user2->setFirstname('Elisabeth');
+        $user2->setBirthdate(new DateTime('1967-06-23'));
+        $user2->setAddress('18 avenue des fleurs, 33000 Bordeaux');
+        $user2->setUsername('vivelesvoitures123');
+        $user2->setRole('ROLE_LOCATAIRE');
+        $user2->setRoles(['ROLE_LOCATAIRE']);
+        $user2->setImage('https://source.unsplash.com/150x150/?nature,water');
+        $locataire[] = $user2;
+
+        $em->persist($user);
+        $em->persist($user2);
+
         // Recupère la liste des catégories du Provider
         $categoriesList = $faker->carCategories();
         $categories = [];
@@ -104,6 +144,7 @@ class AppFixtures extends Fixture
             $car->setCategory($categories[mt_rand(0, count($categories) - 1)]);
             $car->setBrand($brands[mt_rand(0, count($brands) - 1)]);
             $car->setCity($departments[mt_rand(0, count($departments) - 1)]);
+            $car->setUser($proprio[0]);
             $cars[] = $car;
             $em->persist($car);
         }
@@ -129,13 +170,29 @@ class AppFixtures extends Fixture
             $rental->setEndingDate($end);
             $rental->setBilling($diff * $price);       
             $rental->setCar($car);
+            $rental->setUser($locataire[0]);
             dump($rental);
             $em->persist($rental);
         }
         
-        
-        
-        
+
+        // User Admin
+        $admin = new User();
+        $admin->setEmail('admin@admin.com');
+        // php bin/console security:encode-password (adminadmin)
+        $admin->setPassword('$2y$13$nm8GN8grfnC6lTwYU/h0au/TX1gPD3aOSoLoBPHQAID202vc0e7Iu');
+        $admin->setStatus(1);
+        $admin->setLastname('Bloups');
+        $admin->setFirstname('Mathieu');
+        $admin->setBirthdate(new DateTime('1974-06-15'));
+        $admin->setAddress('115 rue de la Rivière, 75000 Paris');
+        $admin->setUsername('darkvador1234');
+        $admin->setRole('ROLE_ADMIN');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setImage('https://source.unsplash.com/150x150/?nature,water');
+
+        $em->persist($admin);
+
         //enregistre
         $em->flush();
     }
