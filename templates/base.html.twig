@@ -78,16 +78,15 @@
                             <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                         </li>
                     {% endif %}
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {% else %}
-                        
+                    
+                    {% if is_granted('IS_ANONYMOUS') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>
                         </li>
                     {% endif %}
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('cars_list') }}">Liste des voitures</a>
+                        <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     
