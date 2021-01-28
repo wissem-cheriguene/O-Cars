@@ -10,8 +10,7 @@ security:
                 class: App\Entity\User
                 property: email
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_PROPRIO, ROLE_LOCATAIRE]
-        ROLE_PROPRIO: [ ROLE_LOCATAIRE]
+        ROLE_PROPRIO: [ROLE_LOCATAIRE]
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class MainController extends AbstractController
 {
@@ -94,7 +95,7 @@ class MainController extends AbstractController
      * Affichage d'une annonce
      * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    public function car(Car $car, Request $request, RentalRepository $rentalRepository): Response
+    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user = null): Response
     {
         // On instancie une rental que l'on va remplir en POST ) avec le createForm
         $rental = new Rental();
@@ -103,6 +104,8 @@ class MainController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
+            // On associe l'user à la car
+            $rental->setUser($user);
             // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
 

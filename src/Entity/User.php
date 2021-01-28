@@ -2,22 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-use function array_unique;
 use function in_array;
+use function array_unique;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"username"})
  */
 class User implements UserInterface
 {
 
     const ROLE_PROPRIO = "ROLE_PROPRIO";
     const ROLE_LOCATAIRE = "ROLE_LOCATAIRE";
+    const ROLE_ADMIN = "ROLE_ADMIN";
 
 
     const STATUS_ACTIF = 1;
@@ -34,6 +39,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email
+     * @Assert\NotBlank
      */
     private $email;
 
@@ -44,16 +51,18 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $username;
 
@@ -64,6 +73,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotNull
+     * @Assert\Date
      */
     private $birthdate;
 
@@ -148,6 +159,7 @@ class User implements UserInterface
         $this->rentals = new ArrayCollection();
         $this->proprio = new ArrayCollection();
         $this->locataire = new ArrayCollection();
+        $this->admin = new ArrayCollection();
     }
 
 
@@ -155,6 +167,7 @@ class User implements UserInterface
         switch ($string){
             case "proprietaire" : return self::ROLE_PROPRIO;
             case "locataire" : return self::ROLE_LOCATAIRE;
+            case "admin" : return self::ROLE_ADMIN;
             default: return "";
 
         }
@@ -242,7 +255,7 @@ class User implements UserInterface
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeInterface $birthdate): self
+    public function setBirthdate($birthdate): self
     {
         $this->birthdate = $birthdate;
 

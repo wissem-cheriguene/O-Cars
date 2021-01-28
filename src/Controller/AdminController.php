@@ -14,11 +14,15 @@ use App\Form\AdminCityModifType;
 use App\Form\AdminUserModifType;
 use App\Form\CarType;
 use App\Entity\Images;
+<<<<<<< HEAD
 use App\Repository\BrandRepository;
 use App\Repository\CarRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CityRepository;
 use App\Repository\UserRepository;
+=======
+use App\Entity\User;
+>>>>>>> develop
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -26,13 +30,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+<<<<<<< HEAD
 use function dd;
+=======
+use Symfony\Component\Security\Core\User\UserInterface;
+>>>>>>> develop
 
 class AdminController extends AbstractController
 {
     /**
      * @Route("/admin", name="administrateur")
      */
+<<<<<<< HEAD
     public function adminIndex(){
         return $this->render('admin/index.html.twig');
     }
@@ -118,6 +127,9 @@ class AdminController extends AbstractController
      * @return RedirectResponse|Response
      */
     public function newcar(Request $request)
+=======
+    public function add(Request $request, UserInterface $user): Response
+>>>>>>> develop
     {
         $car = new Car();
 
@@ -126,10 +138,37 @@ class AdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+<<<<<<< HEAD
 
             $car->setCreatedAt(new \DateTime());
 
             $em= $this->getDoctrine()->getManager();
+=======
+            
+            $car->setUser($user);
+            // On récupère les images transmises
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+                
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads (définit dans servies.yaml)
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $car->addImage($img);
+                
+            
+            }
+
+            // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
+            $em = $this->getDoctrine()->getManager();
+>>>>>>> develop
             $em->persist($car);
             $em->flush();
 
