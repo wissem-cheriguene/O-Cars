@@ -24,14 +24,7 @@
             <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active"></li>
           </ol>
           <div class="carousel-inner" role="listbox">
-          {%dump(carsSlider)%}
-          {% for index,car in carsSlider %}
-  
-            <div class="carousel-item {{ index == 0 ? 'active' : ''}} ">
-              <a href="{{ path('car', {id:car.id})}}"><img class="card d-block img-fluid" src={{ car.images.0.name }} alt=""></a>
-            </div>
 
-          {% endfor %}
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -62,7 +55,7 @@
                 <h6>{{ car.city.name }}</h6>
               </div>
               <div class="card-footer">
-                <small class="text-muted">★ ★ ★ ★ ☆</small>
+                <small class="text-muted">★ ★ ★ ★ ★</small>
               </div>
             </div>
           </div>

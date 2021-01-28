@@ -35,14 +35,24 @@ class MainController extends AbstractController
             ]);
         }
         // https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
-        $carsSlider = $carRepository->findRandomCars();
         $carsLastThree = $carRepository->findLastThreeCarsByDate();
-        dump($carsSlider);
         return $this->render('main/index.html.twig', [
-            'carsSlider' => $carsSlider,
             'carsLastThree' => $carsLastThree,
             'search_form' => $searchCarForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/redirect", name="app_redirect")
+     */
+    public function redirection(){
+        $user = $this->getUser();
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('administrateur');
+        }
+        return $this->redirectToRoute('homepage');
+
     }
 
     /**
@@ -85,7 +95,7 @@ class MainController extends AbstractController
      * Affichage d'une annonce
      * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user): Response
+    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user = null): Response
     {
         // On instancie une rental que l'on va remplir en POST ) avec le createForm
         $rental = new Rental();

@@ -1,0 +1,47 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Liste des marques{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1 class="my-5"> Gestion des marques</h1>
+<h3>
+
+    <a href="{{ path('admin_brand_new') }}">Ajouter une nouvelle marque</a>
+</h3>
+
+        <table class="table-hover">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Modifier/ </th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for brand in brands %}
+                <tr>
+                    <td> {{ brand.name }} </td>
+
+
+
+                    <td>
+                        <a href="{{ path('admin_brand_edit', {'id': brand.id}) }}">x</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_brand_delete', {'id': brand.id}) }}">x</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

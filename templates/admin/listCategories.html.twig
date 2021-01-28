@@ -1,0 +1,47 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1 class="my-5"> Gestion des catégories</h1>
+<h3>
+
+    <a href="{{ path('admin_category_new') }}">Ajouter une nouvelle catégorie</a>
+</h3>
+
+        <table class="table-hover">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Modifier/ </th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td> {{ category.name }} </td>
+
+
+
+                    <td>
+                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}">x</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_category_delete', {'id': category.id}) }}">x</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Liste des villes{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <h1 class="my-5"> Gestion des villes</h1>
+        <h3>
+
+            <a href="{{ path('admin_city_new') }}">Ajouter une nouvelle ville</a>
+        </h3>
+
+        <table class="table-hover">
+            <thead>
+            <tr>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Modifier/ </th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for city in cities %}
+                <tr>
+                    <td> {{ city.name }} </td>
+                    <td> {{ city.postalCode }} </td>
+
+
+                    <td>
+                        <a href="{{ path('admin_city_edit', {'id': city.id}) }}">x</a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_city_delete', {'id': city.id}) }}">x</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}
