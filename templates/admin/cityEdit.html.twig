@@ -1,0 +1,39 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Admin des villes{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <br>
+        <br>
+        <br>
+
+        <h1>Modifier cette ville : </h1>
+        <h3>{{ city.name }}</h3>
+
+
+        {{ form_start(form) }}
+        {{ form_row(form.name , {'label': 'Ville'}) }}
+        {{ form_row(form.postalCode , {'label': 'Code postal'}) }}
+
+
+
+
+        <div class="log">
+            <button class="logg btn-lg btn-primary " type="submit">
+                Modifier cette ville
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+
+{% endblock %}

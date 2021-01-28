@@ -63,10 +63,22 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('admin_users_index')}}">Gestion des Utilisateurs</a>
+                        <a class="nav-link" href="{{path('administrateur')}}">Accueil admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>
+                        <a class="nav-link" href="{{path('admin_users_index')}}">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_cars_index') }}">Voitures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_brands_index') }}">Marques</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_categories_index') }}">Catégories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_cities_index') }}">Villes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
@@ -75,6 +87,14 @@
             </div>
         </div>
     </nav>
+
+    {% for message in app.flashes('success') %}
+        <br>
+        <div class="alert alert-success centrer" style="font-size: 22px">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% block body %}
     {% endblock %}
     <!-- Footer -->
