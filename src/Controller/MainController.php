@@ -10,11 +10,12 @@ use App\Repository\CarRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\RentalRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
@@ -80,7 +81,7 @@ class MainController extends AbstractController
      * Liste des voitures 
      * @Route("/voitures", name="cars_list")
      */
-    public function carsList(CarRepository $carRepository, Request $request): Response
+    public function carsList(CarRepository $carRepository, Request $request,PaginatorInterface $paginator): Response
     {
         
         // Toutes les voitures
