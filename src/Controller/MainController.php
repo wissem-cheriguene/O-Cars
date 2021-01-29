@@ -30,10 +30,13 @@ class MainController extends AbstractController
         if( $searchCarForm->handleRequest($request)->isSubmitted() && $searchCarForm->isValid() ) {
            
             $criteria = $searchCarForm->getData(); 
-            $cars = $carRepository->searchCar($criteria);
-            return $this->render('main/cars_list.html.twig',[
-                'cars' => $cars,
-            ]);
+            $this->container->get('session')->set('criteria', $criteria);
+
+            return $this->redirectToRoute('cars_list');
+
+            // return $this->render('main/cars_list.html.twig',[
+            //     'cars' => $cars,
+            // ]);
         }
         // https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
         $carsLastThree = $carRepository->findLastThreeCarsByDate();
@@ -83,12 +86,29 @@ class MainController extends AbstractController
      */
     public function carsList(CarRepository $carRepository, Request $request,PaginatorInterface $paginator): Response
     {
-        
-        // Toutes les voitures
-        $car = $carRepository->findAll(['model' => 'ASC']);
-
+        // On récupère la variable des voitures stockés en sessions
+        $sessionCriteria = $this->container->get('session')->get('criteria');
+        // Si la variable existe
+        if($sessionCriteria) {
+            $data = $carRepository->searchCar($sessionCriteria);
+            // dump($data);
+            // dump($carRepository->findAll(['model' => 'ASC']));
+        }
+        else {
+            // au sinon on envoie la requête findAll()
+            $data = $carRepository->findAll(['model' => 'ASC']);
+        }
+        // dump($data);
+        $cars = $paginator->paginate(
+            $data, // Requête contenant les données à paginer (ici nos rentals)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            9 // Nombre de résultats par page
+        );
+        // dump($cars->getTotalItemCount());
+        $this->container->get('session')->remove('criteria');
+        // dump($sessionCriteria);
         return $this->render('main/cars_list.html.twig',[
-            'cars' => $car,
+            'cars' => $cars,
         ]);
         
     }

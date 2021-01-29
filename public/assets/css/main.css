@@ -2,6 +2,7 @@ body {
   background:#FAFAFA;
   padding-top: 78px;
 }
+
 .logo-img {
   height:50px;
   background-color: #FAFAFA;
@@ -33,6 +34,7 @@ body {
   font-weight: bold;
   line-height: 1.2;
   text-shadow: 4px 3px 0px #000, 9px 8px 0px rgb(0 0 0 / 15%);
+  font-size:3rem;
   /*text-shadow: 5px 1px 2px rgb(0 0 0 / 30%); */
     /* text-shadow: 0px 4px 3px rgb(0 0 0 / 40%), 0px 8px 13px rgb(0 0 0 / 10%), 0px 18px 23px rgb(0 0 0 / 10%); */
     /* text-shadow: 0px 3px 0px #b2a98f, 0px 14px 10px rgb(0 0 0 / 15%), 0px 24px 2px rgb(0 0 0 / 10%), 0px 34px 30px rgb(0 0 0 / 10%);*/
@@ -60,3 +62,27 @@ body {
 .custom-file-label {
   color:blue;
 }
+
+
+/*****
+CUSTOM STYLE BOOTSTRAP
+******/
+
+.badge {
+  /* white-space: pre-wrap; */
+}
+
+/******
+BREAKPOINTS
+******/
+/* // Small devices (landscape phones, 576px and up) */
+@media (max-width: 600px) { .hero-baseline > h1, h2 {font-size: 2rem}  }
+
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 800px ) { .cards-colums {column-count: 2;}  }
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { font-size:  }
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { font-size:  } 
