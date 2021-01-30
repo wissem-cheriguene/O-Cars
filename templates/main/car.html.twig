@@ -62,50 +62,48 @@
     <h2>Caractéristiques</h2>
   </div>
   <div class="row text-center">
-    <div class="card-columns">
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{car.gearbox}}</h5>
           <p class="card-text">Boîte de vitesse</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.engine }}</h5>
           <p class="card-text">Carburant</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.horsepower }} ch.</h5>
           <p class="card-text">Puissance</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.kilometers }} km</h5>
           <p class="card-text">Kilométrage</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.category.name }}</h5>
           <p class="card-text">Catégorie</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.seat }}</h5>
           <p class="card-text">Places</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.color }}</h5>
           <p class="card-text">Couleur</p>
         </div>
       </div>
-    </div>
   </div>
   {# Formulaire de reservation #}
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}

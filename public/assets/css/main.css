@@ -9,7 +9,7 @@ body {
 }
 
 .main-min-height {
-  min-height: calc(100vh - 78px - 55px);
+  min-height: calc(100vh - 78px - 135px);
   position: relative;
 }
 
@@ -54,7 +54,7 @@ body {
   color: #fafafa;
 }
 
-.user-name {
+.title-pages {
   font-size: 3rem;
   font-weight: bold;
 }
@@ -63,13 +63,36 @@ body {
   color:blue;
 }
 
+.h2-title-home {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 2rem;
+}
 
 /*****
 CUSTOM STYLE BOOTSTRAP
 ******/
 
 .badge {
-  /* white-space: pre-wrap; */
+  white-space: normal;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color:black;
+}
+
+.card-title > a{
+  color: #CBAEAE;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #fafafa;
+  transition: ease-in-out .5s;
+}
+
+.card {
+  background-color: black;
 }
 
 /******
@@ -82,7 +105,7 @@ BREAKPOINTS
 @media (max-width: 800px ) { .cards-colums {column-count: 2;}  }
 
 /* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { font-size:  }
+/* @media (min-width: 992px) { font-size:  } */
 
 /* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { font-size:  } 
+/* @media (min-width: 1200px) { font-size:  }  */
