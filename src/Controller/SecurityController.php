@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ModifProfilType;
+use App\Form\ModifPwdProfilType;
 use App\Form\RegistrationFormType;
 use App\Form\ResetPassType;
 use App\Repository\UserRepository;
@@ -26,8 +27,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
-    {
+    public function login(AuthenticationUtils $authenticationUtils){
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -42,11 +42,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
-    {
+    public function logout(){
         throw new \Exception('Interception! - try/catch');
     }
-
 
     /**
      * @Route("/recuperation-mot-de-passe", name="app_forgotten_password")
@@ -113,14 +111,10 @@ class SecurityController extends AbstractController
         return $this->render('security/forgotten_password.html.twig',['emailForm' => $form->createView()]);
     }
 
-
-
     public function newToken(){
         $bytes = random_bytes(15);
         return bin2hex($bytes);
     }
-
-
 
     /**
      * @Route("/register-verification-recup/{email}/{token}", name="app_register_verification_recup")
@@ -140,40 +134,55 @@ class SecurityController extends AbstractController
             'main' // nom du firewall dans security.yaml
         );
 
-
     }
-
 
     /**
      * @Route("/after-login", name="after_login")
      */
-    public function afterLogin()
-    {
+    public function afterLogin(){
         return $this->render('security/afterLogin.html.twig');
     }
 
-
-
-
     /**
-     * @Route("/modifier-profil", name="modifProfil")
+     * @Route("/modifier-profil", name="edit")
      */
-    public function editUser(Request $request){
+    public function edit(Request $request){
         $user = $this->getUser();
         $form=$this->createForm(ModifProfilType::class, $user);
         $form->handleRequest($request);
+        // dd($form);
         if($form->isSubmitted() and $form->isValid()){
             $em=$this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush($user);
-            $this->addFlash('success', 'Votre mot de profil à été modifié');
+            $this->addFlash('success', 'Votre profil a été modifié avec succès');
             return $this->redirectToRoute('app_homepage');
 
         }
-        return $this->render('user/editUser.html.twig',[
+        return $this->render('user/edit.html.twig',[
             'form'=>$form->createView()
         ]);
     }
 
+    /**
+     * @Route("/modifier-mot-de-passe", name="edit_password")
+     */
+    public function edit_password(Request $request){
+        $user = $this->getUser();
+        $form=$this->createForm(ModifPwdProfilType::class, $user);
+        $form->handleRequest($request);
+        // dd($user);
+        if($form->isSubmitted() and $form->isValid()){
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush($user);
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès');
+            return $this->redirectToRoute('user_account');
+
+        }
+        return $this->render('user/edit_password.html.twig',[
+            'form'=>$form->createView()
+        ]);
+    }
 
 }

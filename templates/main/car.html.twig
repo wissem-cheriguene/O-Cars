@@ -58,7 +58,7 @@
     </div>
   </div>
   {# Caractéristique #}
-  <div class="container d-flex justify-content-center">
+  <div class="container d-flex justify-content-center mb-3">
     <h2>Caractéristiques</h2>
   </div>
   <div class="row text-center">
@@ -70,7 +70,7 @@
       </div>
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card-body card">
-          <h5 class="card-title">{{ car.engine }}</h5>
+          <h5 class="card-title">{{ car.engine|capitalize }}</h5>
           <p class="card-text">Carburant</p>
         </div>
       </div>

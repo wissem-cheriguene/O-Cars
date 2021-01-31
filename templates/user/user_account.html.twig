@@ -20,7 +20,8 @@
         {% if is_granted('ROLE_PROPRIO') %}
             <a href="{{ path('car_add') }}" class="list-group-item list-group-item-action">Ajouter une annonce</a>
         {% endif %}
-        <a href="#" class="list-group-item list-group-item-action">Modifier mes informations personnelles</a>
+        <a href="{{ path('edit') }}" class="list-group-item list-group-item-action">Modifier mes informations personnelles</a>
+        <a href="{{ path('edit_password') }}" class="list-group-item list-group-item-action">Modifier mon mot de passe</a>
     </div>
     </div>
   </div>

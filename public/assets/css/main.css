@@ -95,6 +95,10 @@ a:hover {
   background-color: black;
 }
 
+.form-control[readonly] {
+  background-color: white;
+}
+
 /******
 BREAKPOINTS
 ******/
