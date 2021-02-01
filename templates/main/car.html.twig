@@ -16,7 +16,7 @@
   {# Passer les dates de twig à JS (pour le calendrier) #}
 <div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
 
-<div class="container p-5 bg-dark">
+<div class="container mt-5">
   <div class="row">
     {# Info de l'annonce  #}
     <div class="col-lg-6 col-md-6 mb-4">
@@ -58,12 +58,11 @@
     </div>
   </div>
   {# Caractéristique #}
-  <div class="container d-flex justify-content-center">
-    <h2>Caractéristiques</h2>
-  </div>
   <div class="row text-center">
+
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card-body card">
+
           <h5 class="card-title">{{car.gearbox}}</h5>
           <p class="card-text">Boîte de vitesse</p>
         </div>
