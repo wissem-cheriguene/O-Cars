@@ -12,7 +12,7 @@
   } %}
   {% set rentalsArr = rentalsArr|merge([rental]) %}
 {% endfor %}
-  {%dump(rentalsArr)%}
+  {%dump(car.user.firstname)%}
   {# Passer les dates de twig à JS (pour le calendrier) #}
 <div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
 
@@ -29,6 +29,7 @@
             <p class="card-text">{{ car.description }}</p>
           </div>
           <div class="card-footer">
+            <span>Voiture de {{car.user.firstname}}</span>
             <small class="text-muted">★ ★ ★ ★ ☆</small>
           </div>
       </div>  
@@ -107,10 +108,10 @@
       </div>
   </div>
   {# Formulaire de reservation #}
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      {{ form_widget(form) }}
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+  {{ form_end(form) }}
 </div>
 
 <script>

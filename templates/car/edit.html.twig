@@ -1,11 +1,17 @@
-{% extends 'baseAdmin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{car.title}}{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="container pt-5 pb-5 bg-dark">
         <h1>Modification de l'annonce {{car.title}}</h1>
         {# Formulaire d'ajout d'une annonce  #}
         {% include "partials/_announce-form.html.twig" %}
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
 {% endblock %}

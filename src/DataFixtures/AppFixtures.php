@@ -56,40 +56,43 @@ class AppFixtures extends Fixture
         $proprio = [];
         $locataire = [];
 
-        // User Propriétaire
-        $user = new User();
-        $user->setEmail('owner@owner.com');
-        // php bin/console security:encode-password (admin)
-        $user->setPassword('$2y$13$A5TMRRF8MK.HiyF1RABsLunQ/OI/Y6IVJuTGu/xYYoktoU5pTwmZu');
-        $user->setStatus(1);
-        $user->setLastname('Dupont');
-        $user->setFirstname('Charles-xavier');
-        $user->setBirthdate(new DateTime('1978-08-05'));
-        $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
-        $user->setUsername('picsou1234');
-        $user->setRole('ROLE_PROPRIO');
-        $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
-        $user->setImage('https://source.unsplash.com/150x150/?nature,water');
-        $proprio[] = $user;
-                
-        // User Locataire
-        $user2 = new User();
-        $user2->setEmail('tenant@tenant.com');
-        //php bin/console security:encode-password (locataire)
-        $user2->setPassword('$2y$13$F9oGmWdFbpe9oZVZJjtUSOa2hfPmoDmjlECn2Xh7LShS2lJnz3yWW');
-        $user2->setStatus(1);
-        $user2->setLastname('Tartenpion');
-        $user2->setFirstname('Elisabeth');
-        $user2->setBirthdate(new DateTime('1967-06-23'));
-        $user2->setAddress('18 avenue des fleurs, 33000 Bordeaux');
-        $user2->setUsername('vivelesvoitures123');
-        $user2->setRole('ROLE_LOCATAIRE');
-        $user2->setRoles(['ROLE_LOCATAIRE']);
-        $user2->setImage('https://source.unsplash.com/150x150/?nature,water');
-        $locataire[] = $user2;
+        for($i=0; $i< 5;$i++) {
+            // User Propriétaire
+            $user = new User();
+            $user->setEmail('owner'.$i.'@owner.com');
+            // php bin/console security:encode-password (admin)
+            $user->setPassword('$2y$13$A5TMRRF8MK.HiyF1RABsLunQ/OI/Y6IVJuTGu/xYYoktoU5pTwmZu');
+            $user->setStatus(1);
+            $user->setLastname('Dupont'.$i);
+            $user->setFirstname('Charles-xavier'.$i);
+            $user->setBirthdate(new DateTime('1978-08-05'));
+            $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
+            $user->setUsername('picsou1234'.$i);
+            $user->setRole('ROLE_PROPRIO');
+            $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
+            $user->setImage('https://source.unsplash.com/150x150/?nature,water');
+            $proprio[] = $user;
+            $em->persist($user);
+        }
 
-        $em->persist($user);
-        $em->persist($user2);
+        for ($i=0; $i< 5;$i++) {
+            // User Locataire
+            $user2 = new User();
+            $user2->setEmail('tenant'.$i.'@tenant.com');
+            //php bin/console security:encode-password (locataire)
+            $user2->setPassword('$2y$13$F9oGmWdFbpe9oZVZJjtUSOa2hfPmoDmjlECn2Xh7LShS2lJnz3yWW');
+            $user2->setStatus(1);
+            $user2->setLastname('Tartenpion'.$i);
+            $user2->setFirstname('Elisabeth'.$i);
+            $user2->setBirthdate(new DateTime('1967-06-23'));
+            $user2->setAddress('18 avenue des fleurs, 33000 Bordeaux');
+            $user2->setUsername('vivelesvoitures123'.$i);
+            $user2->setRole('ROLE_LOCATAIRE');
+            $user2->setRoles(['ROLE_LOCATAIRE']);
+            $user2->setImage('https://source.unsplash.com/150x150/?nature,water');
+            $locataire[] = $user2;
+            $em->persist($user2);
+        }
 
         // Recupère la liste des catégories du Provider
         $categoriesList = $faker->carCategories();
@@ -125,14 +128,15 @@ class AppFixtures extends Fixture
 
         $cars = [];
         // Création de 20 annonces 
-        for ($i = 0; $i < 20; $i ++) {
+        for ($i = 0; $i < 100; $i ++) {
             
+            $model = $faker->carModelName();
 
             $car = new Car();
-            $car->setTitle($faker->date('Y') . ' ' . $faker->carModelName());
+            $car->setTitle($faker->date('Y') . ' ' . $model);
             $car->setYear($faker->dateTime());
             $car->setKilometers(mt_rand(10000, 200000));
-            $car->setModel($faker->carModelName());
+            $car->setModel($model);
             $car->setLicensePlate($faker->jpjNumberPlate);
             $car->setEngine($faker->carEngine());
             $car->setSeat(mt_rand('1','10'));
@@ -144,7 +148,7 @@ class AppFixtures extends Fixture
             $car->setCategory($categories[mt_rand(0, count($categories) - 1)]);
             $car->setBrand($brands[mt_rand(0, count($brands) - 1)]);
             $car->setCity($departments[mt_rand(0, count($departments) - 1)]);
-            $car->setUser($proprio[0]);
+            $car->setUser($proprio[array_rand($proprio)]);
             $cars[] = $car;
             $em->persist($car);
         }
@@ -158,7 +162,7 @@ class AppFixtures extends Fixture
 
         // On ajoute des rental aux voitures
         foreach($cars as $car) {
-            $start = new DateTime();
+            $start = $faker->dateTimeInInterval('-30 days');
             $end = $faker->dateTimeInInterval('+30 days');
             $diff = $start->diff($end)->format("%a");
             $price = $car->getPrice();
@@ -170,7 +174,8 @@ class AppFixtures extends Fixture
             $rental->setEndingDate($end);
             $rental->setBilling($diff * $price);       
             $rental->setCar($car);
-            $rental->setUser($locataire[0]);
+            $rental->setStatus(mt_rand(1,3));
+            $rental->setUser($locataire[array_rand($locataire)]);
             dump($rental);
             $em->persist($rental);
         }

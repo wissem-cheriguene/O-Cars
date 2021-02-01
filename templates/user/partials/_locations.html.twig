@@ -1,0 +1,64 @@
+{% if rentals is not empty %}
+    <div class="row mt-5 container">
+        <h3 class="title-pages">Mes demandes de location</h3>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="table-light">
+                <th scope="col">Mes locations</th>
+                <th scope="col">Du</th>
+                <th scope="col">Au</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Statut de la location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index,rental in rentals %}
+                {% dump(rental) %}
+                    <tr class="table-light">
+                        <td><a href="{{ path('car', {id:rental.car.id}) }}">{{ rental.car.title }}</a></td>
+                        <td>{{ rental.startingDate|date('Y-m-d') }}</td>
+                        <td>{{ rental.endingDate|date('Y-m-d') }}</td>
+                        <td>{{ rental.billing }} €</td>
+                        {# <td><a href="{{ path('car_edit', {id: car.id}) }}" class="card-link">Modifier</a></td>
+                        <td>
+                            <form action="{{ path('car_delete', {id:car.id}) }}" method="post">
+                                <input type="hidden" name="token" value="{{ csrf_token('delete-car') }}" />
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </td> #}
+                        <td>
+                            {% if rental.status == 1 %}
+                            <div class="alert alert-warning">
+                                En attente de validation
+                            </div>
+                            {% elseif rental.status == 2 %}
+                            <div class="alert alert-success">
+                                Location acceptée
+                            </div>
+                            {% elseif rental.status == 3 %}
+                            <div class="alert alert-danger">
+                                Location refusée
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+        </table>
+            <div style="width:100%">
+                {{ knp_pagination_render(
+                    rentals,
+                    '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig',
+                    {}, 
+                    {
+                    'align': 'center',
+                    'size': 'large',
+                    'rounded': true,
+                    }
+                ) }}   
+            </div>     
+    </div>
+{% endif %}

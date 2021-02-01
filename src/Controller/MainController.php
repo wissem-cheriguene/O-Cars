@@ -122,11 +122,17 @@ class MainController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // On associe l'user à la car
+            if($user === null) {
+                // dd($user);
+                return $this->redirectToRoute('app_login');
+            }
+            // On associe l'user LOCATAIRE à la car
             $rental->setUser($user);
             // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
-
+            
+            // Mettre le statut de la rental à 1 (en attente de validation)
+            $rental->setStatus(1);
             // Calcul de la facture = prix de la loc par jour * nbr de jour de location
             $price = $car->getPrice();
             $diff = $rental->getEndingDate()->diff($rental->getStartingDate())->format("%a");
@@ -141,14 +147,12 @@ class MainController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Location enregistrée!'
+                'Demande de location enregistrée!'
             );
 
             // toujours rediriger vers une page après un POST réussi
             return $this->redirectToRoute('cars_list');
         } 
-
-
 
         return $this->render('main/car.html.twig',[
             'car' => $car,

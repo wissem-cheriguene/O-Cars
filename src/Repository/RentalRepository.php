@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use stdClass;
 use App\Entity\Rental;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Rental|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,8 +29,37 @@ class RentalRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('r')
             ->select('r.startingDate','r.endingDate')
             ->andWhere('r.car = :car')
+            // Retire les dates location annulé par le propriétaire du tableau
+            // des dates d'indisponibilité
+            ->andWhere('r.status < 3')
             ->setParameter('car', $car)
             ->orderBy('r.startingDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findRentalsByUser($user)
+    {
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user= :user')
+            ->setParameter('user', $user)
+            ->orderBy('r.status', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // https://stackoverflow.com/questions/14218444/using-a-arraycollection-as-a-parameter-in-a-doctrine-query
+    public function findOwnerByBookings($car)
+    {
+
+        return $this->createQueryBuilder('r')
+            ->join('r.car','car')
+            ->andWhere('r in (:car)')
+            ->setParameter('car', $car)
+            ->orderBy('r.status', 'ASC')
             ->getQuery()
             ->getResult()
         ;
