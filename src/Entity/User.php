@@ -27,7 +27,7 @@ class User implements UserInterface
 
     const STATUS_ACTIF = 1;
     const STATUS_UNVERIFIED = 2;
-    CONST STATUS_DELETED = 3;
+    Const STATUS_DELETED = 3;
 
 
     /**
@@ -74,7 +74,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="date")
      * @Assert\NotNull
-     * @Assert\Date
      */
     private $birthdate;
 

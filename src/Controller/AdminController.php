@@ -176,24 +176,25 @@ class AdminController extends AbstractController
     }
 
 
-
-
-
-
-
     /**
      * @Route("/admin/users/modifier/{id}", name="admin_users_edit")
      * @param User $user
+     * @param CarRepository $car
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function editUser(User $user, Request $request)
+    public function editUser(User $user,CarRepository $car, Request $request)
     {
 
         $form =$this->createForm(AdminUserModifType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $roles = $form->get('role')->getData();
+            $roless[0] = $roles;
+            $user->setRoles($roless);
+
 
             $user->setUpdatedAt(new \DateTime());
 
@@ -214,11 +215,17 @@ class AdminController extends AbstractController
         }
 
         $id = $user->getId();
+        $roles = $user->getRoles();
+
+        $car = $car->findAll();
+
 
         return $this->render('admin/usersEdit.html.twig',[
             'form' => $form->createView(),
             'user'=>$user,
-            "id"=> $id
+            'roles'=>$roles,
+            "id"=> $id,
+            'cars' => $car,
         ]);
     }
 
@@ -252,6 +259,25 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_users_index');
     }
 
+    /**
+     * @Route("/admin/ownedCar/delete/{id}", name="admin_car_delete")
+     * @param Car $car
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function deleteOwnedCar(Car $car, Request $request)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $em->remove($car);
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            "La voiture à été supprimé"
+        );
+
+        return $this->redirectToRoute('admin_users_edit');
+    }
 
     /**
      * @Route("/admin/marques", name="admin_brands_index")

@@ -1,10 +1,10 @@
-{% extends 'baseAdmin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{car.title}}{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-        <h1>Modification de l'annonce {{car.title}}</h1>
+        <h1 class="blue">Modification de l'annonce {{car.title}}</h1>
         {# Formulaire d'ajout d'une annonce  #}
         {% include "partials/_announce-form.html.twig" %}
     </div>

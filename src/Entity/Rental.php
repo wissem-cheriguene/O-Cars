@@ -10,12 +10,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Rental
 {
+
+
+    const STATUS_ENCOURS = 1;
+    const STATUS_ACCEPTE = 2;
+    Const STATUS_REFUSE = 3;
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -60,6 +73,18 @@ class Rental
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
     public function getStartingDate(): ?\DateTimeInterface

@@ -23,7 +23,35 @@
     {{ form_row(form.status, {'label': 'Status : STATUS_ACTIF =1 /  STATUS_UNVERIFIED =2 / STATUS_DELETED =3' }) }}
 
 
+    {% for role in roles %}
+        {% if role == "ROLE_LOCATAIRE" %}
+            {{ form_row(form.role, {'label':' Rôle :'}) }}
 
+        {% endif %}
+    {% endfor %}
+
+
+    <table class=" table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Voiture</th>
+            <th scope="col"> | immatriculation</th>
+            <th scope="col"> | Modifier</th>
+            <th scope="col"> | Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for index,car in cars %}
+            <tr class="table-hover">
+                <td>{{ car.title }}</td>
+                <td> | {{ car.licensePlate }}</td>
+                <td> | <a href="{{ path('admin_car_edit', {id: car.id}) }}">x</a></td>
+                <td> | <a href="{{ path('admin_car_delete', {id: car.id}) }}">x</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<br>
     <div class="log">
         <button class="logg btn-lg btn-primary " type="submit">
             Modifier le profil de cet utilisateur
@@ -31,7 +59,6 @@
     </div>
 
     {{ form_end(form) }}
-
 </div>
 
 

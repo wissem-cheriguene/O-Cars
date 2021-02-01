@@ -1,0 +1,12 @@
+.statusType{
+    width: 85px;
+}
+
+.roleType{
+    width: 140px;
+}
+
+
+.form-group > label {
+    color: #4197D6;
+}
