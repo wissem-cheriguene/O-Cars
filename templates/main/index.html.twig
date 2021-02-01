@@ -3,7 +3,11 @@
 {% block body %}
 <div class="hero-banner">
     <div class="hero-baseline">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}	
+      <h1>{{app.user.firstname}}, avec nous, partez O'Cars de tour !</h1>	
+    {% else %}
       <h1>Partez O'Cars de tour !</h1>
+    {% endif %}
     </div>
     {# {{ form(search_form, {'attr': {'novalidate': 'novalidate', 'class': 'hero-search-form'}}) }} #}
     {{ form_start(search_form, {attr: {class: 'hero-search-form', novalidate: 'novalidate'}}) }}
