@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <h1>Facture pour la location du {{ rental.startingDate|date('Y-m-d') }} au {{ rental.endingDate|date('Y-m-d') }}</h1>
+
+  <p> Modèle de la voiture : {{ rental.car.model }}</p>
+  <p> Kilométrage de la voiture : {{ rental.car.kilometers }} km</p>
+  <p>Montant de la facture (TTC) : {{ rental.billing }} €</p>
+
+  <p>Nom du propriétaire : {{ rental.user.firstname }}</p>
+</body>
+</html>
+

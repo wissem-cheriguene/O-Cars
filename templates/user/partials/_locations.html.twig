@@ -9,13 +9,14 @@
                 <th scope="col">Au</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Statut de la location</th>
+                <th scope="col">Télécharger la facture</th>  
                 </tr>
             </thead>
             <tbody>
                 {% for index,rental in rentals %}
                 {% dump(rental) %}
                     <tr class="table-light">
-                        <td><a href="{{ path('car', {id:rental.car.id}) }}">{{ rental.car.title }}</a></td>
+                        <td><a href="{{ path('car', {id:rental.car.id}) }}"></a>{{ rental.car.title }}</td>
                         <td>{{ rental.startingDate|date('Y-m-d') }}</td>
                         <td>{{ rental.endingDate|date('Y-m-d') }}</td>
                         <td>{{ rental.billing }} €</td>
@@ -43,6 +44,9 @@
                                 Location refusée
                             </div>
                             {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('billing',{rentalId: rental.id}) }}" class="btn btn-success {{ rental.status != 2 ? 'disabled' : '' }}" >Télécharger</a>
                         </td>
                     </tr>
                 {% endfor %}

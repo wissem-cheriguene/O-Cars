@@ -34,7 +34,7 @@ class UserController extends AbstractController
         }        
         $bookings = $rentalsRepo->findOwnerByBookings($carsId);
 
-        
+        dump($rentals);
         // dd($cars);
         return $this->render('user/user_account.html.twig', [
             'cars' => $carRepo->findBy(['user' => $this->getUser()]),
