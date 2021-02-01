@@ -74,7 +74,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="date")
      * @Assert\NotNull
-     * @Assert\Date
      */
     private $birthdate;
 
