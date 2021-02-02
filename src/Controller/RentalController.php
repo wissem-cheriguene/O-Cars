@@ -22,6 +22,7 @@ class RentalController extends AbstractController
         $rental = $this->getDoctrine()
             ->getRepository(Rental::class)
             ->find($id);
+        // dd($rental);
         $rental->setStatus(2);
         $em->persist($rental);
         $em->flush();

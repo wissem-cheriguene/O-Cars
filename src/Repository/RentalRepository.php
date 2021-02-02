@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use PDO;
 use stdClass;
 use App\Entity\Rental;
 use Doctrine\Persistence\ManagerRegistry;
@@ -54,15 +55,30 @@ class RentalRepository extends ServiceEntityRepository
     // https://stackoverflow.com/questions/14218444/using-a-arraycollection-as-a-parameter-in-a-doctrine-query
     public function findOwnerByBookings($car)
     {
+        
+        // $r = $this->createQueryBuilder('r')
+        // ->join('r.car','car')
+        // ->andWhere('r in (:car)')
+        // ->setParameter('car', $car)
+        // // ->orderBy('r.status', 'ASC')
+        // ->getQuery()
+        // // ->getResult()
+        // ;
+        // dd($r);
 
-        return $this->createQueryBuilder('r')
-            ->join('r.car','car')
-            ->andWhere('r in (:car)')
-            ->setParameter('car', $car)
-            ->orderBy('r.status', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
+        $em = $this->getEntityManager();
+
+        //SELECT * FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = 5
+        $RAW_QUERY = 'SELECT * FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = :userId';
+        
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        // Set parameters 
+        $statement->bindValue('userId', 5);
+        $statement->execute();
+
+        $r = $statement->fetchAll(PDO::FETCH_CLASS);
+        dd($r);
+
     }
     
 

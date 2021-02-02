@@ -14,7 +14,6 @@
             </thead>
             <tbody>
                 {% for index,rental in rentals %}
-                {% dump(rental) %}
                     <tr class="table-light">
                         <td><a href="{{ path('car', {id:rental.car.id}) }}"></a>{{ rental.car.title }}</td>
                         <td>{{ rental.startingDate|date('Y-m-d') }}</td>

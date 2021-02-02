@@ -7,10 +7,10 @@
 
             </thead>
             <tbody>
-              {% dump(cars) %}
+              {# {% dump(cars) %} #}
 
                 {% for index,car in cars %}
-            {% dump(car) %}
+            {# {% dump(car) %} #}
                     <tr class="table-{% if loop.index is divisible by(2) %}light{% else %}dark{% endif %}">
                         <td><a href="{{ path('car',{id:car.id}) }}">{{ car.title }}</a></td>
                         <td>

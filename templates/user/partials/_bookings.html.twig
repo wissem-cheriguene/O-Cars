@@ -1,12 +1,11 @@
 {% if is_granted('ROLE_PROPRIO') %}
   
     <div class="row mt-5 container">
-        <h3 class="title-pages">Mes demandes de location</h3>
+        <h3 class="title-pages">Mes demandes de location en cours</h3>
         <table class="table table-striped table-hover">
            <thead>
                 <tr class="table-light">
                 <th scope="col">Mon annonce</th>
-                <th scope="col">De la part de</th>
                 <th scope="col">Du</th>
                 <th scope="col">Au</th>
                 <th scope="col">Prix</th>
@@ -17,42 +16,93 @@
             </thead>
             <tbody>
               {% for index,booking in bookings %}
-                  {% dump(booking.user.firstname) %}
                 
-                  <tr class="table-light">
-                      <td><a href="{{ path('car', {id:booking.car.id}) }}">{{ booking.car.title }}</a></td>
-                      <td>{{ booking.user.firstname }}</td>
-                      <td>{{ booking.startingDate|date('Y-m-d') }}</td>
-                      <td>{{ booking.endingDate|date('Y-m-d') }}</td>
-                      <td>{{ booking.billing }} €</td>
-                      {% if booking.status == 1 %}
-                        <td>
-                          <span class="alert alert-warning">
-                              En attente de validation
-                          </span>
-                        </td>
-                      {% elseif booking.status == 2 %}
-                            <td>
-                              <span class="alert alert-info">
-                                  Location acceptée
-                              </span>
-                            </td>
-                      {% elseif booking.status == 3 %}
-                            <td>
-                              <span class="alert alert-danger">
-                                Location refusée
-                              </span>
-                            </td>
-                      {% endif %}
-                      {% if booking.status == 1 %}
-                        <td><a href="{{ path('rental_validate', {id:booking.id}) }}" class="card-link btn btn-success">Accepter</a></td>
-                        <td><a href="{{ path('rental_refuse', {id:booking.id}) }}" class="card-link btn btn-danger">Refuser</a></td>
-                      {% endif %}
-                  </tr>
+                  {% if booking.status == 1 %}
+                  {% dump(booking) %}
+                    <tr class="table-light">
+                        <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
+                        <td>{{ booking.starting_date }}</td>
+                        <td>{{ booking.ending_date }}</td>
+                        <td>{{ booking.billing }} €</td>
+                          <td>
+                            <span class="alert alert-warning">
+                                En attente de validation
+                            </span>
+                          </td>
+                          <td><a href="{{ path('rental_validate', {id:booking.id}) }}" class="card-link btn btn-success">Accepter</a></td>
+                          <td><a href="{{ path('rental_refuse', {id:booking.id}) }}" class="card-link btn btn-danger">Refuser</a></td>
+                    </tr>
+                  {% endif %}
               {% endfor %}
         </tbody>
         </table>
     </div>
 
-
+    <div class="row mt-5 container">
+          <h3 class="title-pages">Mes locactions acceptées</h3>
+          <table class="table table-striped table-hover">
+              <thead>
+                  <tr class="table-light">
+                  <th scope="col">Mon annonce</th>
+                  <th scope="col">Du</th>
+                  <th scope="col">Au</th>
+                  <th scope="col">Prix</th>
+                  <th scope="col">Statut de la location</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for index,booking in bookings %}
+                  
+                    {% if booking.status == 2 %}
+                      {# {% dump(booking.car_id) %} #}
+                      <tr class="table-light">
+                          <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
+                          <td>{{ booking.starting_date }}</td>
+                          <td>{{ booking.ending_date }}</td>
+                          <td>{{ booking.billing }} €</td>
+                                <td>
+                                  <span class="alert alert-info">
+                                      Location acceptée
+                                  </span>
+                                </td>
+                      </tr>
+                    {% endif %}
+                {% endfor %}
+          </tbody>
+          </table>
+    </div>
+    
+    <div class="row mt-5 container">
+          <h3 class="title-pages">Mes locactions refusées</h3>
+          <table class="table table-striped table-hover">
+              <thead>
+                  <tr class="table-light">
+                  <th scope="col">Mon annonce</th>
+                  <th scope="col">Du</th>
+                  <th scope="col">Au</th>
+                  <th scope="col">Prix</th>
+                  <th scope="col">Statut de la location</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for index,booking in bookings %}
+                  
+                    {# {% dump(booking.car_id) %} #}
+                    {% if booking.status == 3 %}
+                      <tr class="table-light">
+                          <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
+                          <td>{{ booking.starting_date }}</td>
+                          <td>{{ booking.ending_date }}</td>
+                          <td>{{ booking.billing }} €</td>
+                                <td>
+                                  <span class="alert alert-danger">
+                                    Location refusée
+                                  </span>
+                                </td>
+                      </tr>
+                      {% endif %}
+                {% endfor %}
+          </tbody>
+          </table>
+    </div>
   {% endif %}

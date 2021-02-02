@@ -12,7 +12,7 @@
   } %}
   {% set rentalsArr = rentalsArr|merge([rental]) %}
 {% endfor %}
-  {%dump(car.user.firstname)%}
+  {# {%dump(car.user.firstname)%} #}
   {# Passer les dates de twig à JS (pour le calendrier) #}
 <div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
 
@@ -22,8 +22,7 @@
     <div class="col-lg-6 col-md-6 mb-4">
       <div class="card h-100">  
           <div class="card-body">
-            <h4 class="card-title">
-              {{ car.year|date('Y') }} {{ car.brand.name }} {{car.model}} <br><span class="badge badge-secondary ">{{ car.city.name }} ({{ car.city.postalCode }})</span> 
+            <h4 class="card-title"> {{ car.title }} <br><span class="badge badge-secondary ">{{ car.city.name }} ({{ car.city.postalCode }})</span> 
             </h4>
             <h5>{{ car.price}} &euro; par jour</h5>
             <p class="card-text">{{ car.description }}</p>

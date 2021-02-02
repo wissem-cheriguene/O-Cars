@@ -131,7 +131,8 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 100; $i ++) {
             
             $model = $faker->carModelName();
-
+            $brand = $brands[mt_rand(0, count($brands) - 1)];
+            
             $car = new Car();
             $car->setTitle($faker->date('Y') . ' ' . $model);
             $car->setYear($faker->dateTime());
@@ -146,7 +147,7 @@ class AppFixtures extends Fixture
             $car->setDescription($faker->sentence(15));
             $car->setPrice(mt_rand(30,400));
             $car->setCategory($categories[mt_rand(0, count($categories) - 1)]);
-            $car->setBrand($brands[mt_rand(0, count($brands) - 1)]);
+            $car->setBrand($brand);
             $car->setCity($departments[mt_rand(0, count($departments) - 1)]);
             $car->setUser($proprio[array_rand($proprio)]);
             $cars[] = $car;
@@ -176,7 +177,7 @@ class AppFixtures extends Fixture
             $rental->setCar($car);
             $rental->setStatus(mt_rand(1,3));
             $rental->setUser($locataire[array_rand($locataire)]);
-            dump($rental);
+            // dump($rental);
             $em->persist($rental);
         }
         
