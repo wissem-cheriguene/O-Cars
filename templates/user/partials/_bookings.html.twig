@@ -6,6 +6,7 @@
            <thead>
                 <tr class="table-light">
                 <th scope="col">Mon annonce</th>
+                <th scope="col">De la part de</th>
                 <th scope="col">Du</th>
                 <th scope="col">Au</th>
                 <th scope="col">Prix</th>
@@ -20,9 +21,10 @@
                   {% if booking.status == 1 %}
                   {% dump(booking) %}
                     <tr class="table-light">
-                        <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
-                        <td>{{ booking.starting_date }}</td>
-                        <td>{{ booking.ending_date }}</td>
+                        <td><a href="{{ path('car', {id:booking.id}) }}">{{ booking.car.title }}</a></td>
+                        <td>{{ booking.user.username }}</td>
+                        <td>{{ booking.startingDate|date('Y-m-d') }}</td>
+                        <td>{{ booking.endingDate|date('Y-m-d') }}</td>
                         <td>{{ booking.billing }} €</td>
                           <td>
                             <span class="alert alert-warning">
@@ -44,6 +46,7 @@
               <thead>
                   <tr class="table-light">
                   <th scope="col">Mon annonce</th>
+                  <th scope="col">De la part de</th>
                   <th scope="col">Du</th>
                   <th scope="col">Au</th>
                   <th scope="col">Prix</th>
@@ -54,11 +57,12 @@
                 {% for index,booking in bookings %}
                   
                     {% if booking.status == 2 %}
-                      {# {% dump(booking.car_id) %} #}
+                      {# {% dump(booking.id) %} #}
                       <tr class="table-light">
-                          <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
-                          <td>{{ booking.starting_date }}</td>
-                          <td>{{ booking.ending_date }}</td>
+                          <td><a href="{{ path('car', {id:booking.id}) }}">{{ booking.car.title }}</a></td>
+                          <td>{{ booking.user.username }}</td>
+                          <td>{{ booking.startingDate|date('Y-m-d') }}</td>
+                          <td>{{ booking.endingDate|date('Y-m-d') }}</td>
                           <td>{{ booking.billing }} €</td>
                                 <td>
                                   <span class="alert alert-info">
@@ -78,6 +82,7 @@
               <thead>
                   <tr class="table-light">
                   <th scope="col">Mon annonce</th>
+                  <th scope="col">De la part de</th>
                   <th scope="col">Du</th>
                   <th scope="col">Au</th>
                   <th scope="col">Prix</th>
@@ -87,12 +92,13 @@
               <tbody>
                 {% for index,booking in bookings %}
                   
-                    {# {% dump(booking.car_id) %} #}
+                    {# {% dump(booking.id) %} #}
                     {% if booking.status == 3 %}
                       <tr class="table-light">
-                          <td><a href="{{ path('car', {id:booking.car_id}) }}">{{ booking.title }}</a></td>
-                          <td>{{ booking.starting_date }}</td>
-                          <td>{{ booking.ending_date }}</td>
+                          <td><a href="{{ path('car', {id:booking.id}) }}">{{ booking.car.title }}</a></td>
+                          <td>{{ booking.user.username }}</td>
+                          <td>{{ booking.startingDate|date('Y-m-d') }}</td>
+                          <td>{{ booking.endingDate|date('Y-m-d') }}</td>
                           <td>{{ booking.billing }} €</td>
                                 <td>
                                   <span class="alert alert-danger">

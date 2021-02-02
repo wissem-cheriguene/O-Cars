@@ -70,7 +70,7 @@ class MainController extends AbstractController
     /**
      * @Route("/facture/{rentalId}", name="billing")
      */
-    public function cgu(\Knp\Snappy\Pdf $knpSnappyPdf, $rentalId): Response
+    public function billing(\Knp\Snappy\Pdf $knpSnappyPdf, $rentalId): Response
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -85,11 +85,10 @@ class MainController extends AbstractController
                 );    
                 return $this->redirectToRoute('user_account');
             };
+            $html = $this->renderView('pdf/pdf.html.twig', array(
+                'rental'  => $rental
+            ));
             
-        $html = $this->renderView('pdf/pdf.html.twig', array(
-            'rental'  => $rental
-        ));
-        
         $start = $rental->getStartingDate()->format('Y-m-d');
         $end = $rental->getEndingDate()->format('Y-m-d');
         return new PdfResponse(

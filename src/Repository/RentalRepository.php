@@ -56,28 +56,29 @@ class RentalRepository extends ServiceEntityRepository
     public function findOwnerByBookings($car)
     {
         
-        // $r = $this->createQueryBuilder('r')
-        // ->join('r.car','car')
-        // ->andWhere('r in (:car)')
-        // ->setParameter('car', $car)
-        // // ->orderBy('r.status', 'ASC')
-        // ->getQuery()
-        // // ->getResult()
-        // ;
+        return $this->createQueryBuilder('r')
+        ->join('r.car','car')
+        ->andWhere('r.car in (:car)')
+        ->setParameter('car', $car)
+        ->addSelect('car')
+        ->orderBy('r.startingDate', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
         // dd($r);
 
-        $em = $this->getEntityManager();
+        // $em = $this->getEntityManager();
 
-        //SELECT * FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = 5
-        $RAW_QUERY = 'SELECT * FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = :userId';
+        // //SELECT * FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = 5
+        // $RAW_QUERY = 'SELECT rental.*, car.title FROM `rental` INNER JOIN car ON rental.car_id = car.id WHERE `car`.`user_id` = :userId';
         
-        $statement = $em->getConnection()->prepare($RAW_QUERY);
-        // Set parameters 
-        $statement->bindValue('userId', 5);
-        $statement->execute();
+        // $statement = $em->getConnection()->prepare($RAW_QUERY);
+        // // Set parameters 
+        // $statement->bindValue('userId', 5);
+        // $statement->execute();
 
-        $r = $statement->fetchAll(PDO::FETCH_CLASS);
-        dd($r);
+        // return $statement->fetchAll(PDO::FETCH_CLASS);
+        // dd($r);
 
     }
     
