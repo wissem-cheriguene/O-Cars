@@ -11,10 +11,12 @@ use App\Repository\BrandRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\RentalRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\SnappyBundle\KnpSnappyBundle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
@@ -66,13 +68,33 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/cgu", name="cgu")
+     * @Route("/facture/{rentalId}", name="billing")
      */
-    public function cgu(): Response
+    public function billing(\Knp\Snappy\Pdf $knpSnappyPdf, $rentalId): Response
     {
-        return $this->render('main/cgu.html.twig',[
-            'controller_name' => 'MainController',
-        ]);
+        $em = $this->getDoctrine()->getManager();
+
+        $rental = $this->getDoctrine()
+            ->getRepository(Rental::class)
+            ->find($rentalId);
+        
+            if($rental->getStatus() != 2) {
+                $this->addFlash(
+                    'danger',
+                    'Petit malin ! :]'
+                );    
+                return $this->redirectToRoute('user_account');
+            };
+            $html = $this->renderView('pdf/pdf.html.twig', array(
+                'rental'  => $rental
+            ));
+            
+        $start = $rental->getStartingDate()->format('Y-m-d');
+        $end = $rental->getEndingDate()->format('Y-m-d');
+        return new PdfResponse(
+            $knpSnappyPdf->getOutputFromHtml($html),
+            'facture_du_'. $start . '_au_'. $end .'.pdf'
+        );
 
     }
 
@@ -122,11 +144,17 @@ class MainController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // On associe l'user à la car
+            if($user === null) {
+                // dd($user);
+                return $this->redirectToRoute('app_login');
+            }
+            // On associe l'user LOCATAIRE à la car
             $rental->setUser($user);
             // On associe la voiture de l'annonce à la rental 
             $rental->setCar($car);
-
+            
+            // Mettre le statut de la rental à 1 (en attente de validation)
+            $rental->setStatus(1);
             // Calcul de la facture = prix de la loc par jour * nbr de jour de location
             $price = $car->getPrice();
             $diff = $rental->getEndingDate()->diff($rental->getStartingDate())->format("%a");
@@ -141,14 +169,12 @@ class MainController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Location enregistrée!'
+                'Demande de location enregistrée!'
             );
 
             // toujours rediriger vers une page après un POST réussi
             return $this->redirectToRoute('cars_list');
         } 
-
-
 
         return $this->render('main/car.html.twig',[
             'car' => $car,

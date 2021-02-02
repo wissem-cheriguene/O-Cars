@@ -15,7 +15,7 @@
     {% else %}
       <div class="row">
             {% for car in cars %} 
-            {% dump(car) %}
+            {# {% dump(car) %} #}
               <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <a href="{{ path('car', {id:car.id})}}"><img class="card-img-top" src={{ car.images.0.name }} alt=""></a>
