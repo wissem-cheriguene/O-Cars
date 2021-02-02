@@ -21,12 +21,16 @@ class CarController extends AbstractController
 
     /**
      * @Route("/back/voiture/ajout", name="car_add", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
-    public function add(Request $request): Response
+    public function add(Request $request, User $user): Response
     {
         $car = new Car();
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
+
         
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -48,6 +52,8 @@ class CarController extends AbstractController
                 $car->addImage($img);
             }
 
+
+            $car->setUser($user);
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($car);

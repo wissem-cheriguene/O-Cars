@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class UserController extends AbstractController
 {
     /**
@@ -26,8 +27,11 @@ class UserController extends AbstractController
             5 // Nombre de résultats par page
         );
 
+        $user = $this->getUser();
+        $car = $user->getCars();
+
         return $this->render('user/user_account.html.twig', [
-            'cars' => $car->findAll(),
+            'cars' => $car,
             'rentals' => $rentals,
         ]);
     }

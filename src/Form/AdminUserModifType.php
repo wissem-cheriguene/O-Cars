@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function dd;
 
 
 class AdminUserModifType extends AbstractType
@@ -42,6 +43,8 @@ class AdminUserModifType extends AbstractType
             ],
             "attr"=>["class"=>"statusType"],
         ]);
+
+
 
         if($user->hasRole(User::ROLE_LOCATAIRE)) {
             $builder

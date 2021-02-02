@@ -23,14 +23,13 @@
     {{ form_row(form.status, {'label': 'Status : STATUS_ACTIF =1 /  STATUS_UNVERIFIED =2 / STATUS_DELETED =3' }) }}
 
 
-    {% for role in roles %}
-        {% if role == "ROLE_LOCATAIRE" %}
-            {{ form_row(form.role, {'label':' Rôle :'}) }}
 
-        {% endif %}
-    {% endfor %}
+    {% if userRole == "ROLE_LOCATAIRE" %}
+        {{ form_row(form.role, {'label':' Rôle :'}) }}
 
+    {% endif %}
 
+    {% if userRole == "ROLE_PROPRIO" %}
     <table class=" table-hover">
         <thead>
         <tr>
@@ -51,6 +50,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 <br>
     <div class="log">
         <button class="logg btn-lg btn-primary " type="submit">

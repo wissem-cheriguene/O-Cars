@@ -31,7 +31,7 @@
                         <a href="{{ path('admin_users_edit', {'id': user.id}) }}">x</a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_users_delete', {'id': user.id}) }}">x</a>
+                        <a href="{{ path('admin_users_delete', {'id': user.id, 'user':user}) }}">x</a>
                     </td>
 
                 </tr>

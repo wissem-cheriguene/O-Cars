@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function dd;
 
 class AdminController extends AbstractController
 {
@@ -216,14 +217,16 @@ class AdminController extends AbstractController
 
         $id = $user->getId();
         $roles = $user->getRoles();
+        $userRole = $user->getRole();
 
-        $car = $car->findAll();
+        $car = $user->getCars();
 
 
         return $this->render('admin/usersEdit.html.twig',[
             'form' => $form->createView(),
             'user'=>$user,
             'roles'=>$roles,
+            'userRole'=>$userRole,
             "id"=> $id,
             'cars' => $car,
         ]);
@@ -259,25 +262,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_users_index');
     }
 
-    /**
-     * @Route("/admin/ownedCar/delete/{id}", name="admin_car_delete")
-     * @param Car $car
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function deleteOwnedCar(Car $car, Request $request)
-    {
-        $em= $this->getDoctrine()->getManager();
-        $em->remove($car);
-        $em->flush();
 
-        $this->addFlash(
-            'success',
-            "La voiture à été supprimé"
-        );
-
-        return $this->redirectToRoute('admin_users_edit');
-    }
 
     /**
      * @Route("/admin/marques", name="admin_brands_index")
