@@ -140,6 +140,7 @@
           altInput: true,
           altFormat: "Y-m-d",
           disable: rentalsObj,
+          disableMobile: false,
           onChange: function(selectedDates, dateStr, instance) {
               //...
               const dateArr = selectedDates.map(date => this.formatDate(date, "Y-m-d"));
