@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function dd;
 
 class AdminController extends AbstractController
 {
@@ -176,24 +177,25 @@ class AdminController extends AbstractController
     }
 
 
-
-
-
-
-
     /**
      * @Route("/admin/users/modifier/{id}", name="admin_users_edit")
      * @param User $user
+     * @param CarRepository $car
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function editUser(User $user, Request $request)
+    public function editUser(User $user,CarRepository $car, Request $request)
     {
 
         $form =$this->createForm(AdminUserModifType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $roles = $form->get('role')->getData();
+            $roless[0] = $roles;
+            $user->setRoles($roless);
+
 
             $user->setUpdatedAt(new \DateTime());
 
@@ -214,11 +216,19 @@ class AdminController extends AbstractController
         }
 
         $id = $user->getId();
+        $roles = $user->getRoles();
+        $userRole = $user->getRole();
+
+        $car = $user->getCars();
+
 
         return $this->render('admin/usersEdit.html.twig',[
             'form' => $form->createView(),
             'user'=>$user,
-            "id"=> $id
+            'roles'=>$roles,
+            'userRole'=>$userRole,
+            "id"=> $id,
+            'cars' => $car,
         ]);
     }
 
@@ -251,6 +261,7 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('admin_users_index');
     }
+
 
 
     /**

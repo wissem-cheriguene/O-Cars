@@ -1,30 +1,39 @@
 {% extends 'baseAdmin.html.twig' %}
 
-{% block title %}Admin des Voitures{% endblock %}
+{% block title %}Admin des Annonces{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <div class="container" >
 
         <br>
         <br>
         <br>
 
+<div
+></div>
 
-
-        <h1>Modifier la voiture: </h1>
+        <h1>Modifier l'annonce: </h1>
         <h3>{{ car.title }}</h3>
 
 
         {{ form_start(form) }}
-        {{ form_row(form.title , {'label': 'Titre'}) }}
-        {{ form_row(form.model, {'label':'Modèle' }) }}
-        {{ form_row(form.engine, {'label':'Moteur' }) }}
-        {{ form_row(form.seat, {'label':'Nombre de sièges' }) }}
-
-        {{ form_row(form.gearbox, {'label': 'boite de vitesse' }) }}
-        {{ form_row(form.price, {'label': 'Prix' }) }}
-        {{ form_row(form.year, {'label': 'Année' }) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.brand) }}
+        {{ form_row(form.model) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.engine) }}
+        {{ form_row(form.seat) }}
+        {{ form_row(form.gearbox) }}
+        {{ form_row(form.year) }}
+        {{ form_row(form.kilometers) }}
+        {{ form_row(form.licensePlate) }}
+        {{ form_row(form.horsePower) }}
+        {{ form_row(form.color) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.images) }}
 
 
 

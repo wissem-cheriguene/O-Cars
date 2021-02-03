@@ -1,25 +1,26 @@
 {% extends 'baseAdmin.html.twig' %}
 
-{% block title %}Liste des voitures{% endblock %}
+{% block title %}Liste des annonces{% endblock %}
 
 {% block body %}
 
     <div class="container-fluid">
-        <h1 class="my-5"> Gestion des voitures</h1>
+        <h1 class="my-5"> Gestion des annonces</h1>
         <table class="table-hover">
             <thead>
             <tr>
-                <th>titre / </th>
-                <th>Modèle / </th>
-                <th>kilometres / </th>
-                <th>moteur / </th>
-                <th>nombre de sièges / </th>
-                <th>puissance - cheveaux  / </th>
-                <th>Boite de vitesse / </th>
-                <th>prix  / </th>
-                <th>prroprio /  </th>
-                <th>Modifier/ </th>
-                <th>Supprimer</th>
+                <th>titre</th>
+                <th> | Modèle</th>
+                <th> | kilometres</th>
+                <th> | moteur</th>
+                <th> | nombre de sièges</th>
+                <th> | puissance - cheveaux </th>
+                <th> | Boite de vitesse</th>
+                <th> | prix </th>
+                <th> | imatriculation </th>
+                <th> | prroprio </th>
+                <th> | Modifier</th>
+                <th> | Supprimer</th>
             </tr>
             </thead>
 
@@ -37,22 +38,23 @@
 
 
 
-                    <td> {{ car.title }} </td>
-                    <td> {{ car.model }} </td>
-                    <td> {{ car.kilometers }} </td>
-                    <td> {{ car.engine }} </td>
-                    <td> {{ car.seat }} </td>
-                    <td> {{ car.horsePower }} </td>
-                    <td> {{ car.gearbox }} </td>
-                    <td> {{ car.price }} </td>
+                    <td> {{ car.title }}  </td>
+                    <td> |  {{ car.model }} </td>
+                    <td>  | {{ car.kilometers }} </td>
+                    <td>  | {{ car.engine }} </td>
+                    <td>  | {{ car.seat }} </td>
+                    <td> |  {{ car.horsePower }} </td>
+                    <td>  | {{ car.gearbox }} </td>
+                    <td> |  {{ car.licensePlate }} </td>
+                    <td>  | {{ car.price }} </td>
 
-                    <td> {{ proprio }} </td>
+                    <td>  | {{ proprio }} </td>
 
                     <td>
-                        <a href="{{ path('admin_car_edit', {'id': car.id}) }}">x</a>
+                        | <a href="{{ path('admin_car_edit', {'id': car.id}) }}"> x</a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_car_delete', {'id': car.id}) }}">x</a>
+                        | <a href="{{ path('admin_car_delete', {'id': car.id}) }}"> x</a>
                     </td>
 
                 </tr>

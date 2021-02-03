@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
             $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
             $user->setUsername('picsou1234'.$i);
             $user->setRole('ROLE_PROPRIO');
-            $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
+            $user->setRoles(['ROLE_PROPRIO']);
             $user->setImage('https://source.unsplash.com/150x150/?nature,water');
             $proprio[] = $user;
             $em->persist($user);

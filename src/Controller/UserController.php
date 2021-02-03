@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class UserController extends AbstractController
 {
     /**
@@ -26,6 +27,7 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             5 // Nombre de résultats par page
         );
+
 
         // Reservation Propriétaire (les demandes)
         $carsId = [];

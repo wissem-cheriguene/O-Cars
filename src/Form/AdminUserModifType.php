@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function dd;
 
 
 class AdminUserModifType extends AbstractType
@@ -15,6 +17,8 @@ class AdminUserModifType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $user = $options['data']; /** @var User $user */
 
         $builder
             ->add('email')
@@ -28,9 +32,33 @@ class AdminUserModifType extends AbstractType
                 ]
             ])
             ->add('address',TextType::class, ['label'=>'Adresse'])
-            ->add('status')
+
+
         ;
+        $builder->add('status', ChoiceType::class, [
+            'choices'  => [
+                '1' => 1,
+                '2' => 2,
+                '3' => 3,
+            ],
+            "attr"=>["class"=>"statusType"],
+        ]);
+
+
+
+        if($user->hasRole(User::ROLE_LOCATAIRE)) {
+            $builder
+                ->add('role', ChoiceType::class, [
+                    'choices' => [
+                        'propriétaire' => 'ROLE_PROPRIO',
+                        'locataire' => 'ROLE_LOCATAIRE',
+                    ],
+                    "attr"=>["class"=>"roleType"],
+                ]);
+        }
     }
+
+
 
     public function configureOptions(OptionsResolver $resolver)
     {

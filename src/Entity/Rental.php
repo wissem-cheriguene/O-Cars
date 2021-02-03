@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Rental
 {
 
+
     const STATUS_ENCOURS = 1;
     const STATUS_ACCEPTE = 2;
     const STATUS_REFUSE = 3;
