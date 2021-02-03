@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
             $user->setAddress('115 rue de la Tourneuve, 75000 Paris');
             $user->setUsername('picsou1234'.$i);
             $user->setRole('ROLE_PROPRIO');
-            $user->setRoles(['ROLE_LOCATAIRE', 'ROLE_PROPRIO']);
+            $user->setRoles(['ROLE_PROPRIO']);
             $user->setImage('https://source.unsplash.com/150x150/?nature,water');
             $proprio[] = $user;
             $em->persist($user);
@@ -127,8 +127,8 @@ class AppFixtures extends Fixture
         }
 
         $cars = [];
-        // Création de 20 annonces 
-        for ($i = 0; $i < 100; $i ++) {
+        // Création de 50 annonces 
+        for ($i = 0; $i < 50; $i ++) {
             
             $model = $faker->carModelName();
             $brand = $brands[mt_rand(0, count($brands) - 1)];
@@ -155,16 +155,18 @@ class AppFixtures extends Fixture
         }
         // On ajoute une image pour chaque voiture
         foreach ($cars as $car) {
-            $image = new Images();
-            $image->setName($faker->unique()->imageUrl($width = 300, $height = 300, ['cars']));
-            $image->setCar($car);
-            $em->persist($image);
+            for($i=0; $i <3;$i++) {
+                $image = new Images();
+                $image->setName($faker->unique()->imageUrl($width = 300, $height = 300, ['cars']));
+                $image->setCar($car);
+                $em->persist($image);
+            }
         }
 
         // On ajoute des rental aux voitures
         foreach($cars as $car) {
-            $start = $faker->dateTimeInInterval('-30 days');
-            $end = $faker->dateTimeInInterval('+30 days');
+            $start = $faker->dateTimeBetween('now', '+15 days');
+            $end = $faker->dateTimeBetween('+30 days', '+90 days');
             $diff = $start->diff($end)->format("%a");
             $price = $car->getPrice();
             $diff = intval($diff) + 1;

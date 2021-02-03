@@ -85,6 +85,7 @@ class MainController extends AbstractController
                 );    
                 return $this->redirectToRoute('user_account');
             };
+            
             $html = $this->renderView('pdf/pdf.html.twig', array(
                 'rental'  => $rental
             ));
