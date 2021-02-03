@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
 
 
-    <h1 class="centrer txtRouges ">Modifier mon mot de passe</h1>
+    <div class="container pt-5 bg-dark">
 
+        <h1 class="title-pages">Modification de mon profil</h1>
         {{ form_start(form) }}
-            {{ form_row(form.plainPassword) }}
             {{ form_row(form.email) }}
             {{ form_row(form.firstName) }}
             {{ form_row(form.lastname) }}
@@ -15,9 +16,8 @@
                 Valider
             </button>
         {{ form_end(form) }}
+        <a class="p-3 d-block"href="{{path('user_account')}}">Retour vers la liste</a>
 
-
-{#{{ form(form)}}
-#}
+    </div>
 
 {% endblock %}

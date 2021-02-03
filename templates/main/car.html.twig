@@ -12,23 +12,23 @@
   } %}
   {% set rentalsArr = rentalsArr|merge([rental]) %}
 {% endfor %}
-  {%dump(rentalsArr)%}
+  {# {%dump(car.user.firstname)%} #}
   {# Passer les dates de twig à JS (pour le calendrier) #}
 <div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
 
-<div class="container mt-5">
+<div class="container bg-dark pt-5 pb-5">
   <div class="row">
     {# Info de l'annonce  #}
     <div class="col-lg-6 col-md-6 mb-4">
       <div class="card h-100">  
           <div class="card-body">
-            <h4 class="card-title">
-              {{ car.year|date('Y') }} {{ car.brand.name }} {{car.model}} <br><span class="badge badge-secondary ">{{ car.city.name }} ({{ car.city.postalCode }})</span> 
+            <h4 class="card-title"> {{ car.title }} <br><span class="badge badge-secondary ">{{ car.city.name }} ({{ car.city.postalCode }})</span> 
             </h4>
             <h5>{{ car.price}} &euro; par jour</h5>
             <p class="card-text">{{ car.description }}</p>
           </div>
           <div class="card-footer">
+            <span>Voiture de {{car.user.firstname}}</span>
             <small class="text-muted">★ ★ ★ ★ ☆</small>
           </div>
       </div>  
@@ -58,58 +58,59 @@
     </div>
   </div>
   {# Caractéristique #}
+  <div class="container d-flex justify-content-center mb-3">
+    <h2>Caractéristiques</h2>
+  </div>
   <div class="row text-center">
-    <h2>Caractéristique</h2>
-    <div class="card-columns">
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
+
           <h5 class="card-title">{{car.gearbox}}</h5>
           <p class="card-text">Boîte de vitesse</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{ car.engine }}</h5>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
+          <h5 class="card-title">{{ car.engine|capitalize }}</h5>
           <p class="card-text">Carburant</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.horsepower }} ch.</h5>
           <p class="card-text">Puissance</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.kilometers }} km</h5>
           <p class="card-text">Kilométrage</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.category.name }}</h5>
           <p class="card-text">Catégorie</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.seat }}</h5>
           <p class="card-text">Places</p>
         </div>
       </div>
-      <div class="card">
-        <div class="card-body">
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card-body card">
           <h5 class="card-title">{{ car.color }}</h5>
           <p class="card-text">Couleur</p>
         </div>
       </div>
-    </div>
   </div>
   {# Formulaire de reservation #}
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
+  {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      {{ form_widget(form) }}
+      <button type="submit" class="btn btn-primary">Enregistrer</button>
+  {{ form_end(form) }}
 </div>
 
 <script>

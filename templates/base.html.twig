@@ -20,7 +20,7 @@
         
         {# Calendar#}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     {% endblock %}
 
     {% block javascripts %}
@@ -52,7 +52,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ path('homepage')}}">
-                <img class="logo-img" src="{{ asset('assets/images/logo.png') }}" alt="logo" />
+                <img class="logo-img" src="{{ asset('assets/images/logo_rogner.png') }}" alt="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <p class="h5">Bonjour {{ app.user.firstname }} !</p>
+                    <span class="badge bg-secondary">	
+                        <p class="h5">Bonjour {{ app.user.firstname }} !</p>
+                    </span>
                 {% endif %}
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -71,14 +73,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('about') }}">Nous contactez</a>
                     </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}	
+                    {% else %}	
+                        <li class="nav-item">	
+                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>	
+                        </li>	
+                    {% endif %}	
+
+                    {% if is_granted('IS_ANONYMOUS') %}	
+                        <li class="nav-item">	
+                            <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>	
+                        </li>	
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('cars_list') }}">Liste des voitures</a>
+                        <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     

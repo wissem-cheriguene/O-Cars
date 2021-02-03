@@ -14,8 +14,7 @@ class Rental
 
     const STATUS_ENCOURS = 1;
     const STATUS_ACCEPTE = 2;
-    Const STATUS_REFUSE = 3;
-
+    const STATUS_REFUSE = 3;
 
     /**
      * @ORM\Id
@@ -28,7 +27,6 @@ class Rental
      * @ORM\Column(type="integer")
      */
     private $status;
-
 
     /**
      * @ORM\Column(type="date", nullable=true)

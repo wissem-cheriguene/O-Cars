@@ -62,6 +62,7 @@ class RegistrationController extends AbstractController
 
 
         $form->handleRequest($request);
+        // dd($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
 
             // encode password avec une fonction de userInterface dont hérite notre entité user
