@@ -7,7 +7,7 @@ body {
 }
 
 .main-min-height {
-  min-height: calc(100vh - 78px - 135px);
+  min-height: calc(100vh - 78px - 55px);
   position: relative;
 }
 
@@ -27,6 +27,19 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size:3rem;
+  width: 80%;
+}
+
+.hero-search-form {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 80%;
+  max-width: 600px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(32, 30, 30, 0.2);
+  padding: 1rem;
+  border-radius: 5px;
 }
 
 .hero-baseline > h1 {
@@ -34,20 +47,8 @@ body {
   font-weight: bold;
   line-height: 1.2;
   text-shadow: 4px 3px 0px #000, 9px 8px 0px rgb(0 0 0 / 15%);
-  /*text-shadow: 5px 1px 2px rgb(0 0 0 / 30%); */
-    /* text-shadow: 0px 4px 3px rgb(0 0 0 / 40%), 0px 8px 13px rgb(0 0 0 / 10%), 0px 18px 23px rgb(0 0 0 / 10%); */
-    /* text-shadow: 0px 3px 0px #b2a98f, 0px 14px 10px rgb(0 0 0 / 15%), 0px 24px 2px rgb(0 0 0 / 10%), 0px 34px 30px rgb(0 0 0 / 10%);*/
 }
 
-.hero-search-form {
-  position: absolute;
-  top: 15%;
-  width: 50%;
-  left: 2%;
-  background-color: rgba(32, 30, 30, 0.2);
-  padding: 1rem;
-  border-radius: 5px;
-}
 
 .form-group > label {
   color: #4197D6;
@@ -106,7 +107,7 @@ a:hover {
 BREAKPOINTS
 ******/
 /* // Small devices (landscape phones, 576px and up) */
-@media (max-width: 600px) { .hero-baseline > h1, h2 {font-size: 2rem}  }
+@media (max-width: 650px) { .hero-baseline > h1 { font-size: 2.5rem;}   }
 
 /* // Medium devices (tablets, 768px and up) */
 @media (max-width: 800px ) { .cards-colums {column-count: 2;}  }
@@ -117,3 +118,20 @@ BREAKPOINTS
 /* // Extra large devices (large desktops, 1200px and up) */
 /* @media (min-width: 1200px) { font-size:  }  */
 
+@media screen and (max-width: 790px) {
+  table thead {
+    display: none;
+  }
+  table td {
+    display: flex;
+    
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+
+  }
+}

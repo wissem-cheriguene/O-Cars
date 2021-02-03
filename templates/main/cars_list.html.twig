@@ -7,10 +7,9 @@
 {% block body %}
 
 {% include "partials/_flash_msg.html.twig" %}
-<div class="container bg-dark">
-    <h1 class="text-center p-4"> Liste des véhicules</h1>
+<div class="container bg-dark" style="overflow-x: hidden;">
+    <h1 class="title-pages text-center p-4"> Liste des véhicules</h1>
     {% if not cars %}
-      {% dump(cars)%}
       <p class="lead text-white mt-5 text-center">Aucun résultat(s) trouvé(s)</p>
     {% else %}
       <div class="row">
@@ -34,18 +33,16 @@
             {% endfor %}
       </div>
     {% endif %}
-    <div style="width:100%">	
-      {{ knp_pagination_render(	
-          cars,	
-          '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig',	
-          {}, 	
-          {	
-          'align': 'center',	
-          'size': 'large',	
-          'rounded': true,	
-          }	
-      ) }} 	
-    </div>  
+    {{ knp_pagination_render(	
+        cars,	
+        '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig',	
+        {}, 	
+        {	
+        'align': 'center',	
+        'size': 'large',	
+        'rounded': true,	
+        }	
+    ) }} 	
 </div>
 
 {% endblock %}
