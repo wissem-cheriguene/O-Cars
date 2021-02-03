@@ -134,4 +134,14 @@ BREAKPOINTS
     min-width: 120px;
 
   }
+
+  /* .pagination {
+    display: block;
+  } */
+
+  .page-link {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.765625rem !important;
+    line-height: 1.5 !important;
+  }
 }
