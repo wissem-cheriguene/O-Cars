@@ -18,7 +18,6 @@
               {% for index,booking in bookings %}
                 
                   {% if booking.status == 1 %}
-                  {% dump(booking) %}
                     <tr class="table-light">
                         <td data-label="Mon annonce"><a href="{{ path('car', {id:booking.id}) }}">{{ booking.car.title }}</a></td>
                         <td data-label="De la part de">{{ booking.user.username }}</td>
