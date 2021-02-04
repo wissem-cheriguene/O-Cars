@@ -77,8 +77,6 @@
               </thead>
               <tbody>
                 {% for index,booking in bookings %}
-                  
-                    {% dump(booking) %}
                     {% if booking.status == 3 %}
                       <tr class="table-light">
                           <td data-label="Mon annonce">{{ booking.car.title }}</td>
