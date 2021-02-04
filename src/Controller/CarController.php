@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\AdminUserModifType;
 use App\Form\CarType;
 use App\Entity\Images;
+use App\Repository\ImagesRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,7 +76,7 @@ class CarController extends AbstractController
     /**
      * @Route("/back/voiture/modification/{id<\d+>}", name="car_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Car $car = null, EntityManagerInterface $em): Response
+    public function edit(Request $request, Car $car = null, EntityManagerInterface $em, ImagesRepository $imageRepo): Response
     {
         if (!$car) {
             throw $this->createNotFoundException(
@@ -91,7 +92,29 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // On slug à partir du titre : voir le Listener
+            // On récupère les images transmises
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+
+                // On vide les anciennes img de la BDD avant d'ajouter les nouvelles
+                $oldImages = $imageRepo->findBy(['car' => $car]);
+                foreach($oldImages as $oneImage) {
+                    $car->removeImage($oneImage);
+                }
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads (définit dans servies.yaml)
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $car->addImage($img);
+            }
 
             $em->flush();
 
