@@ -60,10 +60,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
                     <span class="badge bg-secondary">	
                         <p class="h5">Bonjour {{ app.user.firstname }} !</p>
                     </span>
+
                 {% endif %}
+
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="{{path('homepage')}}">Accueil
@@ -71,19 +74,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('about') }}">Nous contactez</a>
+                        <a class="nav-link" href="{{ path('about') }}">Nous contacter</a>
                     </li>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}	
-                    {% else %}	
+                    {% if is_granted('IS_ANONYMOUS') %}	
+
                         <li class="nav-item">	
                             <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>	
                         </li>	
-                    {% endif %}	
-
-                    {% if is_granted('IS_ANONYMOUS') %}	
                         <li class="nav-item">	
                             <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>	
                         </li>	
+
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
@@ -99,7 +100,6 @@
                         </li>
 
                     {% endif %}
-                    
                 </ul>
             </div>
         </div>
@@ -113,7 +113,6 @@
         <div class="d-flex container justify-content-center">
             <p class="text-white">Copyright &copy; O'Cars 2021</p>
         </div>
-        <!-- /.container -->
     </footer>
 </body>
 

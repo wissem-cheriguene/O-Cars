@@ -3,13 +3,13 @@
 {% block body %}
 <div class="hero-banner">
     <div class="hero-baseline">
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}	
-      <h1>{{app.user.firstname}}, avec nous, partez O'Cars de tour !</h1>	
-    {% else %}
-      <h1>Partez O'Cars de tour !</h1>
-    {% endif %}
+      {% if is_granted('IS_AUTHENTICATED_FULLY') %}	
+        <h1>{{app.user.firstname}}, avec nous, partez O'Cars de tour !</h1>	
+      {% else %}
+        <h1>Partez O'Cars de tour !</h1>
+      {% endif %}
     </div>
-    {# {{ form(search_form, {'attr': {'novalidate': 'novalidate', 'class': 'hero-search-form'}}) }} #}
+
     {{ form_start(search_form, {attr: {class: 'hero-search-form', novalidate: 'novalidate'}}) }}
 
         {{ form_row(search_form.model) }}
@@ -28,10 +28,10 @@
   <div class="row">
   {% for car in carsLastThree %}
 
-          <div class="col-lg-4 col-md-6 mb-4">
+          <div class="col-lg col-md mb-4">
             <div class="card h-100">
-                <a href="{{ path('car', {id:car.id})}}" style="height:300px;">
-                    <img src="{{ asset('uploads/'~car.images.0.name) }}" class="img-fluid" alt="{{ car.title }}">
+                <a href="{{ path('car', {id:car.id})}}">
+                    <img src="{{ asset('uploads/'~car.images.0.name) }}" class="card-car-img" alt="{{ car.title }}">
                 </a>
               <div class="card-body">
                 <h4 class="card-title">

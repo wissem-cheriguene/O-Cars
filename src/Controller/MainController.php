@@ -58,13 +58,11 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/nous-contactez", name="about")
+     * @Route("/nous-contacter", name="about")
      */
     public function about(): Response
     {
-        return $this->render('main/about.html.twig', [
-            'controller_name' => 'MainController',
-        ]);
+        return $this->render('main/about.html.twig');
     }
 
     /**

@@ -43,7 +43,7 @@
         <div class="carousel-inner">
             {% for image in car.images %}
               <div class="carousel-item {{ loop.first ? 'active'}}" style="height:300px;">          
-                  <img src="{{ asset('uploads/'~image.name) }}" class="img-fluid" alt="{{ car.title }}">
+                  <img src="{{ asset('uploads/'~image.name) }}" class="card-car-img" alt="{{ car.title }}">
               </div>
             {% endfor %}
         </div>
@@ -145,7 +145,7 @@
           },
         }
       );
-    });
+  });
 </script>
 
 {% endblock %}
