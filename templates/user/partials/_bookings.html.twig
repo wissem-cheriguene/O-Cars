@@ -19,7 +19,7 @@
                 
                   {% if booking.status == 1 %}
                     <tr class="table-light">
-                        <td data-label="Mon annonce"><a href="{{ path('car', {id:booking.car.id}) }}">{{ booking.car.title }}</a></td>
+                        <td data-label="Mon annonce">{{ booking.car.title }}</td>
                         <td data-label="De la part de">{{ booking.user.username }}</td>
                         <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
                         <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
@@ -51,7 +51,7 @@
                     {% if booking.status == 2 %}
                       {# {% dump(booking.id) %} #}
                       <tr class="table-light">
-                          <td data-label="Mon annonce"><a href="{{ path('car', {id:booking.car.id}) }}">{{ booking.car.title }}</a></td>
+                          <td data-label="Mon annonce">{{ booking.car.title }}</td>
                           <td data-label="De la part de">{{ booking.user.username }}</td>
                           <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
                           <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
@@ -81,7 +81,7 @@
                     {% dump(booking) %}
                     {% if booking.status == 3 %}
                       <tr class="table-light">
-                          <td data-label="Mon annonce"><a href="{{ path('car', {id:booking.car.id}) }}">{{ booking.car.title }}</a></td>
+                          <td data-label="Mon annonce">{{ booking.car.title }}</td>
                           <td data-label="De la part de">{{ booking.user.username }}</td>
                           <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
                           <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
