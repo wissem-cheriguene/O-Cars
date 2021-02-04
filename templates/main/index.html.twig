@@ -30,7 +30,9 @@
 
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-                <a href="{{ path('car', {id:car.id})}}"><img class="card-img-top" src={{ car.images.0.name }} alt=""></a>
+                <a href="{{ path('car', {id:car.id})}}" style="height:300px;">
+                    <img src="{{ asset('uploads/'~car.images.0.name) }}" class="img-fluid" alt="{{ car.title }}">
+                </a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="{{ path('car', {id:car.id})}}">{{ car.year|date('Y') }} {{ car.brand.name}} {{car.model}}</a>

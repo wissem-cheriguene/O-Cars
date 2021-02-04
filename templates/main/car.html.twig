@@ -42,13 +42,8 @@
         </ol>
         <div class="carousel-inner">
             {% for image in car.images %}
-              <div class="carousel-item {{ loop.first ? 'active'}}">
-                  <img src="{{ image.name }}" class="d-block w-100" alt="{{ car.title }}">
-                  {#
-                 git  <img src="{{ asset('uploads/'~image.name) }}}" class="d-block w-100" alt="{{ car.title }}">
-                  #}
-
-
+              <div class="carousel-item {{ loop.first ? 'active'}}" style="height:300px;">          
+                  <img src="{{ asset('uploads/'~image.name) }}" class="img-fluid" alt="{{ car.title }}">
               </div>
             {% endfor %}
         </div>
