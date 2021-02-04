@@ -57,7 +57,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastname',TextType::class, array('label' => 'Nom'))
             ->add('firstname',TextType::class, array('label' => 'Prénom'))
             ->add('username',TextType::class, array('label' => 'Pseudo'))
-            ->add('birthdate', DateType::class, [
+            ->add('birthdate', BirthdayType::class, [
                 'label' => 'Date de naissance',
                 'placeholder' =>[
                  'year' => 'année', 'month' => 'Mois', 'day' => 'Jour',
