@@ -3,12 +3,12 @@
 {% block title %}Ajout d'une annonce{% endblock %}
 
 {% block body %}
-    <div class="container pt-5 bg-dark">
-        <h1>Ajout d'une annonce</h1>
+    <div class="container pt-5 pb-5 bg-dark">
+            <a href="{{path('user_account')}}" class="btn btn-primary mb-3">Retour vers la liste</a>
+        <h1 class="text-center title-pages">Ajout d'une annonce</h1>
         {# Formulaire d'ajout d'une annonce  #}
         {% include "partials/_announce-form.html.twig" %}
 
-        <a href="{{path('user_account')}}">Retour vers la liste</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>

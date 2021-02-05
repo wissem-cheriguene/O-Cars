@@ -49,7 +49,6 @@
                 {% for index,booking in bookings %}
                   
                     {% if booking.status == 2 %}
-                      {# {% dump(booking.id) %} #}
                       <tr class="table-light">
                           <td data-label="Mon annonce">{{ booking.car.title }}</td>
                           <td data-label="De la part de">{{ booking.user.username }}</td>

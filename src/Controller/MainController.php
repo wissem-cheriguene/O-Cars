@@ -172,7 +172,7 @@ class MainController extends AbstractController
             );
 
             // toujours rediriger vers une page après un POST réussi
-            return $this->redirectToRoute('cars_list');
+            return $this->redirectToRoute('car', ['id' => $car->getId()]);
         } 
 
         return $this->render('main/car.html.twig',[

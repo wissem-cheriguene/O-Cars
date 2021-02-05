@@ -35,11 +35,17 @@ class UserController extends AbstractController
             $carsId[] = $car->getId();
         }        
         $bookings = $rentalsRepo->findOwnerByBookings($carsId);
-
+        $notifications = [];
+        foreach($bookings as $booking) {
+            if($booking->getStatus() == 1) {
+                $notifications[] = $booking;
+            }
+        }
         return $this->render('user/user_account.html.twig', [
             'cars' => $carRepo->findBy(['user' => $this->getUser()]),
             'bookings' => $bookings,
             'rentals' => $rentals,
+            // 'notifications' => count($notifications),
         ]);
     }
 }

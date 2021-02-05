@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}O'cars{% endblock %}</title>
     {% block stylesheets %}
 
@@ -17,11 +18,10 @@
 
     {# fichier css local #}
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/form.css') }}" rel="stylesheet" />
 
     {# Favicon #}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
-    
+
     {# Calendar#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -43,7 +43,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/rangePlugin.js"></script>
     {# // <script src="{{ asset('js/main.js') }}"></script> #}
-    
+
     {% endblock %}
 
 
@@ -54,7 +54,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ path('administrateur')}}">
-                <img class="logo-img" src="{{ asset('assets/images/logo.png') }}" alt="logo" />
+                <img class="logo-img" src="{{ asset('assets/images/logo_rogner.png') }}" alt="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,9 +62,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <span class="badge bg-secondary">
+                        <p class="h5">Bonjour {{ app.user.firstname }} !</p>
+                    </span>
+                    {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{path('administrateur')}}">Accueil admin</a>
+                        <a class="nav-link" href="{{path('administrateur')}}">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('admin_users_index')}}">Utilisateurs</a>
@@ -90,23 +94,22 @@
     </nav>
 
     {% for message in app.flashes('success') %}
-        <br>
-        <div class="alert alert-success centrer" style="font-size: 22px">
-            {{ message }}
-        </div>
+    <br>
+    <div class="alert alert-success centrer" style="font-size: 22px">
+        {{ message }}
+    </div>
     {% endfor %}
-        <div class="main-min-height {% block centerContent %}{% endblock %}">
-            <div class="bg-dark">
-                {% block body %}
-                {% endblock %}
-            </div>
+    <div class="main-min-height {% block centerContent %}{% endblock %}">
+        <div class="bg-dark">
+            {% block body %}
+            {% endblock %}
         </div>
+    </div>
     <!-- Footer -->
     <footer class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="row container justify-content-center">
-            <p class="text-white">Copyright &copy; O'Cars 2020</p>
+        <div class="d-flex container justify-content-center">
+            <p class="text-white">Copyright &copy; O'Cars 2021</p>
         </div>
-        <!-- /.container -->
     </footer>
 </body>
 

@@ -16,6 +16,7 @@
 <div class="rentals" data-rentals="{{ rentalsArr|json_encode()|escape }}"></div>
 
 <div class="container bg-dark pt-5 pb-5">
+{% include "partials/_flash_msg.html.twig" %}
   <div class="row">
     {# Info de l'annonce  #}
     <div class="col-lg-6 col-md-6 mb-4">
@@ -110,7 +111,7 @@
   {# Formulaire de reservation #}
   {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
       {{ form_widget(form) }}
-      <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <button type="submit" class="btn btn-primary" style="display:inline-block;width: 100%;height: 5vh;">Enregistrer</button>
   {{ form_end(form) }}
 </div>
 

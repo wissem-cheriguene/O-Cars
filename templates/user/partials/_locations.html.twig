@@ -13,16 +13,18 @@
                 </tr>
             </thead>
             <tbody>
+            
                 {% for index,rental in rentals %}
                     <tr class="table-light">
                         <td data-label="Mon annonce">
                             <a href="{{ path('car', {id:rental.car.id}) }}"></a>{{ rental.car.title }}
                         </td>
-                        <td data-label="De la part de">{{ rental.startingDate|date('Y-m-d') }}</td>
-                        <td data-label="Du">{{ rental.endingDate|date('Y-m-d') }}</td>
-                        <td data-label="Au">{{ rental.billing }} €</td>
-                        <td data-label="Prix">
+                        <td data-label="Du">{{ rental.startingDate|date('Y-m-d') }}</td>
+                        <td data-label="Au">{{ rental.endingDate|date('Y-m-d') }}</td>
+                        <td data-label="Prix">{{ rental.billing }} €</td>
+                        <td>
                             {% if rental.status == 1 %}
+                                {% dump(rental) %}
                             <div class="alert alert-warning">
                                 En attente de validation
                             </div>

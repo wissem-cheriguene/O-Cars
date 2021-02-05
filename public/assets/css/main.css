@@ -42,7 +42,7 @@ body {
   width: 80%;
   max-width: 600px;
   transform: translate(-50%, -50%);
-  background-color: rgba(32, 30, 30, 0.2);
+  background-color: rgba(32, 30, 30, 0.4);
   padding: 1rem;
   border-radius: 5px;
 }
@@ -50,6 +50,7 @@ body {
 .hero-baseline > h1 {
   color: white;
   font-weight: bold;
+  text-align: center;
   line-height: 1.2;
   text-shadow: 4px 3px 0px #000, 9px 8px 0px rgb(0 0 0 / 15%);
 }
@@ -75,13 +76,27 @@ body {
 
 .h2-title-home {
   font-weight: bold;
-  text-transform: uppercase;
-  margin: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.h1-admin {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+
+.p-about {
+
+  color: black;
 }
 
 /*****
 CUSTOM STYLE BOOTSTRAP
 ******/
+a > span[class="badge bg-danger"] {
+  font-size: 1rem;
+}
 
 .badge {
   white-space: normal;
@@ -113,7 +128,7 @@ a:hover {
 BREAKPOINTS
 ******/
 /* // Small devices (landscape phones, 576px and up) */
-@media (max-width: 650px) { .hero-baseline > h1 { font-size: 2.5rem;}   }
+@media (max-width: 650px) { .hero-baseline > h1, .h2-title-home { font-size: 2.5rem;}  }
 
 /* // Medium devices (tablets, 768px and up) */
 @media (max-width: 800px ) { .cards-colums {column-count: 2;}  }
