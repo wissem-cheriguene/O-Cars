@@ -1,0 +1,18 @@
+{% extends "emails/base.email.twig" %}
+
+{% block body %}
+    Bonjour {{ user.lastname }} {{ user.firstname }},
+    <br>
+
+        Vous avez une nouvelle demande de location<br>
+
+    </p>
+
+
+    <br>
+
+    <a href="{{ absolute_url(path('homepage')) }}">cliquez ici</a>
+
+
+
+{% endblock %}

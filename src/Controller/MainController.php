@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Car;
 use App\Entity\Rental;
+use App\Entity\User;
+use App\Form\ModifPwdProfilType;
 use App\Form\RentalType;
 use App\Form\SearchCarType;
 use App\Repository\CarRepository;
 use App\Repository\BrandRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\RentalRepository;
+use App\Security\LoginFormAuthenticator;
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Bundle\SnappyBundle\KnpSnappyBundle;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\EmailService;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class MainController extends AbstractController
 {
@@ -134,7 +139,7 @@ class MainController extends AbstractController
      * Affichage d'une annonce
      * @Route("/voiture/{id}", name="car", methods={"GET", "POST"})
      */
-    public function car(Car $car, Request $request, RentalRepository $rentalRepository, UserInterface $user = null): Response
+    public function car(Car $car, Request $request, RentalRepository $rentalRepository, EmailService $emailService, UserInterface $user = null): Response
     {
         // On instancie une rental que l'on va remplir en POST ) avec le createForm
         $rental = new Rental();
@@ -166,6 +171,19 @@ class MainController extends AbstractController
             $em->persist($rental);
             $em->flush();
 
+
+            $proprio = $car->getUser();
+            $emailService->sendEmail([
+                'to' => $proprio->getEmail(),
+                'toName' => $proprio->getFirstname(),
+                'template' => 'emails/location.email.twig',
+                'subject' => 'Vous avez une nouvelle demande de location sur Ocars',
+                'context' => [
+                    'user'=> $proprio,
+                ],
+            ]);
+
+
             $this->addFlash(
                 'success',
                 'Demande de location enregistrée!'
@@ -181,5 +199,19 @@ class MainController extends AbstractController
             // Recupérer les rentals en BDD et les envoyées à la vue
             'rentals' => $rentalRepository->findRentalsByCar($car)
         ]);
+    }
+
+    /**
+     * @Route("/location/{email}", name="location")
+     */
+    public function location(User $user , GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, Request $request){
+
+        return $guardHandler->authenticateUserAndHandleSuccess(
+            $user,
+            $request,
+            $authenticator,
+            'main' // firewall name in security.yaml
+        );
+
     }
 }
