@@ -61,41 +61,40 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                    <span class="badge bg-secondary">	
-                        <p class="h5">Bonjour {{ app.user.firstname }} !</p>
-                    </span>
+                    <p class="badge badge-pill badge-primary" style="font-size: 1rem;">	
+                        Bonjour {{ app.user.firstname }}
+                    </p>
 
                 {% endif %}
 
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{path('homepage')}}">Accueil
-                            <span class="sr-only">(current)</span>
-                        </a>
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{path('homepage')}}">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('about') }}">Nous contacter</a>
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
                     </li>
+                    
                     {% if is_granted('IS_ANONYMOUS') %}	
 
-                        <li class="nav-item">	
+                        <li class="nav-item bold">	
                             <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>	
                         </li>	
-                        <li class="nav-item">	
+                        <li class="nav-item bold">	
                             <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>	
                         </li>	
 
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{ path('about') }}">Nous contacter</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('user_account') }}">Mon compte <span class="badge bg-danger"></span></a>
+                        <li class="nav-item bold">
+                            <a class="nav-link" href="{{ path('user_account') }}">Mon compte <span class="badge bg-primary"></span></a>
                         </li>
                         
-                        <li class="nav-item">
+                        <li class="nav-item bold">
                             <a class="nav-link" href="{{ path('app_logout') }}"> Déconnexion</a>
                         </li>
 
@@ -109,7 +108,7 @@
             {% endblock %}
         </div>
     <!-- Footer -->
-    <footer class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <footer class="navbar navbar-expand-lg navbar-dark  ">
         <div class="d-flex container justify-content-center">
             <p class="text-white">Copyright &copy; O'Cars 2021</p>
         </div>

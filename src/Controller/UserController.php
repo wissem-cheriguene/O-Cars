@@ -17,17 +17,11 @@ class UserController extends AbstractController
     /**
      * @Route("/mon-compte", name="user_account")
      */
-    public function user_account(CarRepository $carRepo, RentalRepository $rentalsRepo, PaginatorInterface $paginator, Request $request): Response
+    public function user_account(CarRepository $carRepo, RentalRepository $rentalsRepo, Request $request): Response
     {
 
         // Rental du locataire 
-        $data = $rentalsRepo->findRentalsByUser($this->getUser());
-        $rentals = $paginator->paginate(
-            $data, // Requête contenant les données à paginer (ici nos rentals)
-            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
-            5 // Nombre de résultats par page
-        );
-
+        $rentals = $rentalsRepo->findRentalsByUser($this->getUser());
 
         // Reservation Propriétaire (les demandes)
         $carsId = [];
@@ -35,17 +29,11 @@ class UserController extends AbstractController
             $carsId[] = $car->getId();
         }        
         $bookings = $rentalsRepo->findOwnerByBookings($carsId);
-        $notifications = [];
-        foreach($bookings as $booking) {
-            if($booking->getStatus() == 1) {
-                $notifications[] = $booking;
-            }
-        }
+
         return $this->render('user/user_account.html.twig', [
             'cars' => $carRepo->findBy(['user' => $this->getUser()]),
             'bookings' => $bookings,
             'rentals' => $rentals,
-            // 'notifications' => count($notifications),
         ]);
     }
 }

@@ -46,11 +46,11 @@ class NotificationsSubscriber implements EventSubscriberInterface
         // Si on a une balise body
         // On a une balise body avec un id optionnel
         // on utilise une Regex pour matcher cette balise body
-        if (preg_match('/<span class="badge bg-danger">/', $content, $match)) {
+        if (preg_match('/<span class="badge bg-primary">/', $content, $match)) {
             // On récupère la balise body complète (avec son id)
             $span = $match[0];
             // On remplace cette balise par la même balise + la bannière
-            $newContent = str_replace($span, $span . '<span class="badge bg-danger">'.$notifications.'</span>', $content);
+            $newContent = str_replace($span, $span . $notifications.'</span>', $content);
             // On écrase le contenu de la réponse
             $response->setContent($newContent);
         }

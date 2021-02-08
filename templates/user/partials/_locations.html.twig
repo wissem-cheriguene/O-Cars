@@ -1,5 +1,5 @@
 {% if rentals is not empty %}
-    <div class="row mt-5 container">
+    <div class="row  pt-5 container">
         <h3 class="title-pages">Mes demandes de location</h3>
         <table class="table table-striped table-hover">
             <thead>
@@ -24,7 +24,6 @@
                         <td data-label="Prix">{{ rental.billing }} €</td>
                         <td>
                             {% if rental.status == 1 %}
-                                {# {% dump(rental) %} #}
                             <div class="alert alert-warning">
                                 En attente de validation
                             </div>
@@ -39,23 +38,11 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path('billing',{rentalId: rental.id}) }}" class="btn btn-success {{ rental.status != 2 ? 'disabled' : '' }}" >Télécharger</a>
+                            <a href="{{ path('billing',{rentalId: rental.id}) }}" class="btn btn-primary {{ rental.status != 2 ? 'disabled' : '' }}" >Télécharger</a>
                         </td>
                     </tr>
                 {% endfor %}
         </tbody>
-        </table>
-        <div style="width:100%">
-            {{ knp_pagination_render(
-                rentals,
-                '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig',
-                {}, 
-                {
-                'align': 'center',
-                'size': 'large',
-                'rounded': true,
-                }
-            ) }}   
-        </div>     
+        </table>  
     </div>
 {% endif %}

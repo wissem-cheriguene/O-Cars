@@ -29,7 +29,7 @@
   {% for car in carsLastThree %}
 
           <div class="col-lg col-md mb-4">
-            <div class="card h-100">
+            <div class="card h-100 border-primary">
                 <a href="{{ path('car', {id:car.id})}}">
                     <img src="{{ asset('uploads/'~car.images.0.name) }}" class="card-car-img" alt="{{ car.title }}">
                 </a>
@@ -37,11 +37,8 @@
                 <h4 class="card-title">
                   <a href="{{ path('car', {id:car.id})}}">{{ car.year|date('Y') }} {{ car.brand.name}} {{car.model}}</a>
                 </h4>
-                <h5>{{ car.price}} &euro;</h5>
-                <h6>{{ car.city.name }}</h6>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">★ ★ ★ ★ ★</small>
+                <h5 class="text-white">{{ car.price}} &euro;</h5>
+                <h6 class="text-white">{{ car.city.name }}</h6>
               </div>
             </div>
           </div>

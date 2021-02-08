@@ -4,15 +4,38 @@
 
 {% block body %}
 
-<div class="container bg-dark" style="min-height: 86.4vh;">
-  <div class="h2"> Bienvenue sur la page "à propos" !</div>
-  <br>
-  <div class="h4"> Qui sommes nous?</div>
-  <br>
-  <div class="p-about"> Nous sommes Jean-Marc, Wissem et Jonathan! Nous sommes étudiants chez O'clock et nous sommes ravis de vous présenter notre projet de fin d'études. </div>
+<div class="container  pt-5" style="min-height: 86.4vh;">
+  <h1 class="text-center">Qui sommes-nous ?</h1>
+
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="card border-primary m-3 text-white" style="max-width: 20rem;">
+      <div class="card-header">Product Owner</div>
+      <div class="card-body">
+        <h4 class="card-title">Wissem</h4>
+        <p class="card-text">Après avoir fait la spé Wordpress, j'ai choisi de d'ajouter une flèche à mon arc en ajoutant la spé Symfony à mes compétences!</p>
+      </div>
+    </div>
+
+    <div class="card border-primary m-3 text-white" style="max-width: 20rem;">
+      <div class="card-header">Lead Dev</div>
+      <div class="card-body">
+        <h4 class="card-title">Jean-Marc</h4>
+        <p class="card-text"> N'hésitez pas à contacter l'école si notre travail vous intéresse.</p>
+      </div>
+    </div>
+
+    <div class="card border-primary m-3 text-white" style="max-width: 20rem;">
+      <div class="card-header">Scrum Master</div>
+      <div class="card-body">
+        <h4 class="card-title">Jonathan</h4>
+        <p class="card-text"> Etudiants chez O'clock, nous sommes ravis de vous présenter notre projet de fin d'études.</p>
+      </div>
+    </div>
+  </div>
+{#   
+  <div class=""> Nous sommes Jean-Marc, Wissem et Jonathan! Nous sommes étudiants chez O'clock et nous sommes ravis de vous présenter notre projet de fin d'études. </div>
   <br>
   <div class="h4"> Nous contacter : rien de plus simple !</div>
-  <div class="p-about"> N'hésitez pas à demander nos coordonnées auprès de l'école O'clock</div>
-</div>
+  <div class=""> N'hésitez pas à demander nos coordonnées auprès de l'école O'clock</div> #}
 
 {% endblock %}

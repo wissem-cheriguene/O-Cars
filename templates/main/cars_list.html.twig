@@ -6,16 +6,16 @@
 
 {% block body %}
 
-<div class="container bg-dark" style="overflow-x: hidden;">
+<div class="container  " style="overflow-x: hidden;">
     <h1 class="title-pages text-center p-4"> Liste des véhicules</h1>
     {% if not cars %}
-      <p class="lead text-white mt-5 text-center">Aucun résultat(s) trouvé(s)</p>
+      <p class="lead text-white  pt-5 text-center">Aucun résultat(s) trouvé(s)</p>
     {% else %}
       <div class="row">
             {% for car in cars %} 
             {# {% dump(car) %} #}
               <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 text-white border-primary ">
                     <a href="{{ path('car', {id:car.id})}}">
                       <img src="{{ asset('uploads/'~car.images.0.name) }}" class="card-car-img" alt="{{ car.title }}">
                     </a>
@@ -25,9 +25,6 @@
                     </h4>
                     <h5>{{ car.price}} &euro;</h5>
                     <h6>{{ car.city.name }}</h6>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-muted">★ ★ ★ ★ ☆</small>
                   </div>
                 </div>
               </div>

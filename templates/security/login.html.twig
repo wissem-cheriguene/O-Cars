@@ -6,8 +6,8 @@
 
 {% block body %}
 
-<div class="container bg-dark p-3">
-    <h1>Se connecter!</h1>
+<div clacss="container text-center  p-3">
+    <h1>Connexion</h1>
 
         <form action="{{ path('app_login') }}" class="form-signin" method="post">
             {% if error %}
@@ -23,8 +23,8 @@
             </div>
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <button class="logg btn-lg btn-primary d-block " type="submit">Se connecter</button>
-            <a href="{{ path('app_forgotten_password') }}">Récupérer son mot de passe</a>
+            <button class="btn btn-outline-primary" type="submit">Se connecter</button>
+            <a href="{{ path('app_forgotten_password') }}" class="d-block mt-2">Récupérer son mot de passe</a>
         </form>
 </div>
 
