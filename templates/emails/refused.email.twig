@@ -1,0 +1,19 @@
+{% block body %}
+    Bonjour {{ user.lastname }} {{ user.firstname }},
+    <br>
+
+        J'ai le désarroi de vous annoncer que  votre demande de location a été refusée.
+
+
+    </p>
+
+
+    <br>
+
+    <a href="{{ absolute_url(path('homepage')) }}">cliquez ici pour revenir vers le site</a>
+
+    <br>
+    Bonne chance et bon courrage dans votre recherche d'escapde<br>
+    Le robot de Ocars
+
+{% endblock %}
