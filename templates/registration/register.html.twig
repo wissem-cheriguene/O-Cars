@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="container  ">
+<div class="container pt-3">
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger">{{ flashError }}</div>
     {% endfor %}
@@ -16,7 +16,7 @@
         </div>
     {% endfor %}
 
-    <h1>S'incrire</h1>
+    <h1 class="text-center">Inscription</h1>
     {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.firstname) }}
@@ -26,7 +26,7 @@
         {{ form_row(registrationForm.birthdate) }}
         {{ form_row(registrationForm.address) }}
         {{ form_row(registrationForm.agreeTerms) }}
-        <button class="logg btn-lg btn-primary " type="submit">S'inscrire</button>
+        <button type="submit" class="btn btn-primary" style="display:inline-block;width: 100%;height: 5vh;">Enregistrer</button>
     {{ form_end(registrationForm) }}
 
 </div>
