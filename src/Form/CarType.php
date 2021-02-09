@@ -80,7 +80,6 @@ class CarType extends AbstractType
             ])
             ->add('title', TextType::class, [
                 'label'  => 'Titre de l\'annonce',
-                'help' => 'Le titre ne doit pas dépasser 255 caractères'
             ])
             ->add('description', TextareaType::class, [
                 'label'  => 'Description de l\'annonce',

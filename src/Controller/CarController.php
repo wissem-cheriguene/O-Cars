@@ -140,7 +140,7 @@ class CarController extends AbstractController
                 'No car found for this id '
             );
         }
-        dump($car);
+        //dump($car);
         $car->setIsPublished(false);
         $entityManager->persist($car);
         $entityManager->flush();
