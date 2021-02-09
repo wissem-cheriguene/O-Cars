@@ -97,7 +97,7 @@ class PwdFormAuthenticator extends AbstractFormLoginAuthenticator implements Pas
         }
 
             // redirect to some "app_homepage" route - of wherever you want
-            return new RedirectResponse($this->urlGenerator->generate('modifProfil'));
+            return new RedirectResponse($this->urlGenerator->generate('edit_password'));
     }
 
     protected function getLoginUrl()
