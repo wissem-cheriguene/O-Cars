@@ -27,7 +27,7 @@
 <div class="container d-flex justify-content-center">
   <div class="row">
   {% for car in carsLastThree %}
-
+    {% if car.isPublished %}
           <div class="col-lg col-md mb-4">
             <div class="card h-100 border-primary text-white p-relative card-effect">
                 <a href="{{ path('car', {id:car.id})}}">
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-
+    {% endif %}
   {% endfor %}
   </div>
 </div>

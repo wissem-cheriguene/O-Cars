@@ -4,6 +4,7 @@
 
 {% block body %}
 
+{% if car.isPublished %}
 {% set rentalsArr = [] %}
 {% for rental in rentals %}
   {% set rental = {
@@ -112,7 +113,12 @@
     {{ form_end(form) }}
   {% endif %}
 </div>
-
+{% else %}
+  <div class="container pt-5 text-center">
+    <h1 class="display-4 pb-5">Annonce indisponible pour le moment</h1>
+    <a href="{{ path('cars_list')}}" class="btn btn-outline-primary btn-lg">Visitez la liste de nos voitures</a>
+  </div>
+{% endif %}
 
 
 <script>

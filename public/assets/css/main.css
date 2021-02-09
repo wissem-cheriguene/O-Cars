@@ -64,6 +64,10 @@ body {
   color: #4197D6;
 }
 
+.btn-hover:hover > .card-body > a {
+  color:white;
+
+}
 .title-pages {
   font-size: 3rem;
   font-weight: bold;
@@ -71,7 +75,6 @@ body {
 
 .custom-file-label {
   color:blue;
-
 }
 
 .h2-title-home {

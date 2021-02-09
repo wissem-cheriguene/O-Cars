@@ -52,7 +52,8 @@ class CarController extends AbstractController
                 $car->addImage($img);
             }
 
-
+            // Passer à true is published
+            $car->setIsPublished(true);
             $car->setUser($this->getUser());
             // faire quelque chose avec l'entité, par exemple la sauvegarder en bdd
             $em = $this->getDoctrine()->getManager();
@@ -130,31 +131,45 @@ class CarController extends AbstractController
     }
 
     /**
-     * @Route("/back/voiture/delete/{id<\d+>}", name="car_delete", methods={"DELETE"})
+     * @Route("/back/voiture/deactivate/{id<\d+>}", name="car_deactivate")
      */
-    public function delete(EntityManagerInterface $entityManager, Car $car = null, Request $request): Response
+    public function deactivate(EntityManagerInterface $entityManager, Car $car = null, Request $request): Response
     {
         if (!$car) {
             throw $this->createNotFoundException(
                 'No car found for this id '
             );
         }
-
-        //on récupère le token soumis
-        $submittedToken = $request->request->get('token');
-
-        // on vérifie s'il est présent et le même que celui mis en session lors de l'appel à csrf_token() dans la création du formulaire
-        if ($this->isCsrfTokenValid('delete-car', $submittedToken)) {
-            $entityManager->remove($car);
-            $entityManager->flush();
-            
-            $this->addFlash('success', 'La voiture "'. $car->getTitle() .'" a bien été supprimé.');
-
-            return $this->redirectToRoute('user_account');
-        }
+        dump($car);
+        $car->setIsPublished(false);
+        $entityManager->persist($car);
+        $entityManager->flush();
+        
+        // dd($car);
 
         // si token non valide
-        $this->addFlash('danger', 'Problème à l\'enregistrement, veuillez renvoyer le formulaire.');
+        $this->addFlash('success', 'Annonce désactivée !');
+
+        return $this->redirectToRoute('user_account');
+    }
+
+    /**
+     * @Route("/back/voiture/activate/{id<\d+>}", name="car_activate")
+     */
+    public function activate(EntityManagerInterface $entityManager, Car $car = null, Request $request): Response
+    {
+        if (!$car) {
+            throw $this->createNotFoundException(
+                'No car found for this id '
+            );
+        }
+        $car->setIsPublished(true);
+        $entityManager->persist($car);
+        $entityManager->flush();
+        
+
+        // si token non valide
+        $this->addFlash('success', 'Annonce activée !');
 
         return $this->redirectToRoute('user_account');
     }

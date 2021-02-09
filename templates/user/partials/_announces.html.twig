@@ -11,15 +11,15 @@
                         <td>
                             <a href="{{ path('car_edit', {id: car.id}) }}" class="btn btn-md btn-info">Modifier</a>
                         </td>
-                        <td>
-                            <form action="{{ path('car_delete', {id:car.id}) }}" method="post">
-                                <input type="hidden" name="token" value="{{ csrf_token('delete-car') }}" />
-                                <input type="hidden" name="_method" value="DELETE" />
-                                <button type="submit" class="btn btn-md btn-danger">
-                                    Supprimer
-                                </button>
-                            </form>
-                        </td>
+                        {% if car.isPublished %}
+                            <td>
+                                <a href="{{ path('car_deactivate', {id: car.id}) }}" class="btn btn-md btn-danger">Désactiver l'annonce</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <a href="{{ path('car_activate', {id: car.id}) }}" class="btn btn-md btn-success">Activer l'annonce</a>
+                            </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>

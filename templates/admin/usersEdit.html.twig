@@ -4,25 +4,17 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container pt-5">
 
-<br>
-<br>
-<br>
-
-<h1>Modifier le profil de : </h1>
-<h3>{{ user.lastname }} {{ user.firstName }}</h3>
-
+<h1>Modifier le profil de {{ user.lastname }} {{ user.firstName }}</h1>
 
     {{ form_start(form) }}
      {{ form_row(form.email , {'label': 'Email, attention à bien entrer une adresse valide si vous modifiez'}) }}
-    {{ form_row(form.firstName, {'label':'Nom' }) }}
-    {{ form_row(form.lastName, {'label':'Prenom' }) }}
+    {{ form_row(form.firstName, {'label':'Prenom' }) }}
+    {{ form_row(form.lastName, {'label':'Nom' }) }}
     {{ form_row(form.address, {'label':'Adresse' }) }}
     {{ form_row(form.birthdate, {'label':'Date de naissance' }) }}
     {{ form_row(form.status, {'label': 'Status : STATUS_ACTIF =1 /  STATUS_UNVERIFIED =2 / STATUS_DELETED =3' }) }}
-
-
 
     {% if userRole == "ROLE_LOCATAIRE" %}
         {{ form_row(form.role, {'label':' Rôle :'}) }}
@@ -30,40 +22,32 @@
     {% endif %}
 
     {% if userRole == "ROLE_PROPRIO" %}
-    <table class=" table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Voiture</th>
-            <th scope="col"> | immatriculation</th>
-            <th scope="col"> | Modifier</th>
-            <th scope="col"> | Supprimer</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for index,car in cars %}
-            <tr class="table-hover">
-                <td>{{ car.title }}</td>
-                <td> | {{ car.licensePlate }}</td>
-                <td> | <a href="{{ path('admin_car_edit', {id: car.id}) }}">x</a></td>
-                <td> | <a href="{{ path('admin_car_delete', {id: car.id}) }}">x</a></td>
+        <h2 class="text-center">Gestion des voitures</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr class="table-light">
+                <th scope="col">Voiture</th>
+                <th scope="col">Immatriculation</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for index,car in cars %}
+                <tr  class="table-light">
+                    <td>{{ car.title }}</td>
+                    <td>{{ car.licensePlate }}</td>
+                    <td><a href="{{ path('admin_car_edit', {id: car.id}) }}" class="btn btn-md btn-primary">Modifier</a></td>
+                    <td><a href="{{ path('admin_car_delete', {id: car.id}) }}" class="btn btn-md btn-danger">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
-<br>
-    <div class="log">
-        <button class="logg btn-lg btn-primary " type="submit">
-            Modifier le profil de cet utilisateur
-        </button>
+    <button class="btn-lg btn-primary d-block" type="submit">
+        Modifier le profil de cet utilisateur
+    </button>
     </div>
-
-    {{ form_end(form) }}
-</div>
-
-
-    <br>
-    <br>
-    <br>
-
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

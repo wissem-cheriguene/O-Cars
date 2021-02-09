@@ -43,6 +43,25 @@
         {# Plugin custom file input  #}
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.cells.min.js"></script>
+        <script>
+        window.addEventListener('load', function () {
+            //your script
+            VANTA.CELLS({
+                el: "#animated-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                color1: 0x000000,
+                color2: 0x2a9fd6,
+            })
+        });
+        </script>
+
     {% endblock %}
 
 </head>
@@ -103,16 +122,19 @@
             </div>
         </div>
     </nav>
-        <div class="main-min-height {% block centerContent %}{% endblock %}">
+    {# Animation sur le background #}
+    <div id="animated-bg">
+        <div class="main-min-height {% block centerContent %}{% endblock %}" >
             {% block body %}
             {% endblock %}
         </div>
-    <!-- Footer -->
-    <footer class="navbar navbar-expand-lg navbar-dark  ">
-        <div class="d-flex container justify-content-center">
-            <p class="text-white">Copyright &copy; O'Cars 2021</p>
-        </div>
-    </footer>
+        <!-- Footer -->
+        <footer class="navbar navbar-expand-lg navbar-dark  ">
+            <div class="d-flex container justify-content-center">
+                <p class="text-white">Copyright &copy; O'Cars 2021</p>
+            </div>
+        </footer>
+    </div>
 </body>
 
 </html>
