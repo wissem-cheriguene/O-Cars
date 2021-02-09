@@ -5,11 +5,11 @@
 
 
 {% block body %}
-
-<div class="container  " style="overflow-x: hidden;">
-    <h1 class="title-pages text-center p-4"> Liste des véhicules</h1>
-    {% if not cars %}
-      <p class="lead text-white  pt-5 text-center">Aucun résultat(s) trouvé(s)</p>
+<div class="container text-center" style="overflow-x: hidden;">
+    <h1 class="title-pages p-4"> Liste des véhicules</h1>
+    {% if cars.getTotalItemCount() < 1 %}
+      <p class="lead text-white pt-5">Aucun résultat trouvé</p>
+      <a href="{{ path('homepage')}}" class="btn btn-outline-primary btn-lg">Modifier la recherche</a>
     {% else %}
       <div class="row">
             {% for car in cars %} 
