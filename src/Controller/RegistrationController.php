@@ -40,7 +40,6 @@ class RegistrationController extends AbstractController
         return bin2hex($bytes);
     }
 
-
     /**
      * @Route("/register/{type}", name="app_register", requirements={
      *     "type"="proprietaire|locataire|admin"
@@ -138,7 +137,5 @@ class RegistrationController extends AbstractController
     public function loginpage(){
         return $this->render('registration/registerpage.html.twig');
     }
-
-
 
 }

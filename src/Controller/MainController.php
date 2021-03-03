@@ -32,7 +32,6 @@ class MainController extends AbstractController
     public function index(CarRepository $carRepository, Request $request): Response
     {
         // Formulaire de recherche de voiture
-        //https://www.youtube.com/watch?v=_75fDJITerA
         $searchCarForm = $this->createForm(SearchCarType::class);
         if( $searchCarForm->handleRequest($request)->isSubmitted() && $searchCarForm->isValid() ) {
            
@@ -41,7 +40,6 @@ class MainController extends AbstractController
             return $this->redirectToRoute('cars_list');
 
         }
-        // https://stackoverflow.com/questions/10762538/how-to-select-randomly-with-doctrine
         $carsLastThree = $carRepository->findLastThreeCarsByDate();
         return $this->render('main/index.html.twig', [
             'carsLastThree' => $carsLastThree,
