@@ -1,13 +1,140 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}O'cars{% endblock %}</title>
+
+    {% block stylesheets %}
+
+        {# Bootswatch CDN #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css" integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2" crossorigin="anonymous">
+
+        {# fichier css local #}
+        <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" />
+
+        {# Favicon #}
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon.png') }}" />
+        
+        {# Calendar#}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    {% endblock %}
+
+    {% block javascripts %}
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+        {# Calendar  #}
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/rangePlugin.js"></script>
+        {# // <script src="{{ asset('js/main.js') }}"></script> #}
+        
+        {# Plugin custom file input  #}
+        <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.21/dist/vanta.cells.min.js"></script>
+        <script>
+        window.addEventListener('load', function () {
+            //your script
+            VANTA.CELLS({
+                el: "#animated-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                color1: 0x000000,
+                color2: 0x2a9fd6,
+            })
+        });
+        </script>
+
+    {% endblock %}
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top cl-effect-1">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('homepage')}}">
+                <img class="logo-img" src="{{ asset('assets/images/logo_rogner.png') }}" alt="logo" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    <p class="badge badge-pill badge-primary" style="font-size: 1rem;">	
+                        Bonjour {{ app.user.firstname }}
+                    </p>
+
+                {% endif %}
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{path('homepage')}}">Accueil</a>
+                    </li>
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{ path('cars_list') }}">Nos voitures</a>
+                    </li>
+                    
+                    {% if is_granted('IS_ANONYMOUS') %}	
+
+                        <li class="nav-item bold">	
+                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>	
+                        </li>	
+                        <li class="nav-item bold">	
+                            <a class="nav-link" href="{{ path('app_loginPage') }}">Inscription</a>	
+                        </li>	
+
+                    {% endif %}
+                    <li class="nav-item bold">
+                        <a class="nav-link" href="{{ path('about') }}">Nous contacter</a>
+                    </li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    
+                        <li class="nav-item bold">
+                            <a class="nav-link" href="{{ path('user_account') }}">Mon compte <span class="badge bg-primary"></span></a>
+                        </li>
+                        
+                        <li class="nav-item bold">
+                            <a class="nav-link" href="{{ path('app_logout') }}"> Déconnexion</a>
+                        </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {# Animation sur le background #}
+    <div id="animated-bg">
+        <div class="main-min-height {% block centerContent %}{% endblock %}" >
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!-- Footer -->
+        <footer class="navbar navbar-expand-lg navbar-dark  ">
+            <div class="d-flex container justify-content-center">
+                <p class="text-white">Copyright &copy; O'Cars 2021</p>
+            </div>
+        </footer>
+    </div>
+</body>
+
 </html>

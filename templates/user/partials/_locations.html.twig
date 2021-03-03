@@ -1,0 +1,48 @@
+{% if rentals is not empty %}
+    <div class="row  pt-5 container">
+        <h3 class="title-pages">Mes demandes de location</h3>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="table-light">
+                <th scope="col">Mes locations</th>
+                <th scope="col">Du</th>
+                <th scope="col">Au</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Statut de la location</th>
+                <th scope="col">Télécharger la facture</th>  
+                </tr>
+            </thead>
+            <tbody>
+            
+                {% for index,rental in rentals %}
+                    <tr class="table-light">
+                        <td data-label="Mon annonce">
+                            <a href="{{ path('car', {id:rental.car.id}) }}"></a>{{ rental.car.title }}
+                        </td>
+                        <td data-label="Du">{{ rental.startingDate|date('Y-m-d') }}</td>
+                        <td data-label="Au">{{ rental.endingDate|date('Y-m-d') }}</td>
+                        <td data-label="Prix">{{ rental.billing }} €</td>
+                        <td>
+                            {% if rental.status == 1 %}
+                            <div class="alert alert-warning">
+                                En attente de validation
+                            </div>
+                            {% elseif rental.status == 2 %}
+                            <div class="alert alert-success">
+                                Location acceptée
+                            </div>
+                            {% elseif rental.status == 3 %}
+                            <div class="alert alert-danger">
+                                Location refusée
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('billing',{rentalId: rental.id}) }}" class="btn btn-primary {{ rental.status != 2 ? 'disabled' : '' }}" >Télécharger</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+        </table>  
+    </div>
+{% endif %}

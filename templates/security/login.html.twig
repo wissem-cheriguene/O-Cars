@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Se connecter!{% endblock %}
+
+{# CSS class de bootstrap qui sert à centrer le contenu de la page  #}
+{% block centerContent %}d-flex align-items-center justify-content-center{% endblock %}
+
+{% block body %}
+
+<div clacss="container text-center  p-3">
+    <h1>Connexion</h1>
+
+        <form action="{{ path('app_login') }}" class="form-signin" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Courriel</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Courriel  (Email)" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-outline-primary" type="submit">Se connecter</button>
+            <a href="{{ path('app_forgotten_password') }}" class="d-block mt-2">Récupérer son mot de passe</a>
+        </form>
+</div>
+
+{% endblock %}

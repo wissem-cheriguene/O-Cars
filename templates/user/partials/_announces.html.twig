@@ -1,0 +1,29 @@
+{% if is_granted('ROLE_PROPRIO') and cars is not empty %}
+    <div class="row  pt-5 container">
+        <h3 class="title-pages">Mes annonces</h3>
+        <table class="table table-striped table-hover">
+            <thead>
+            </thead>
+            <tbody>
+                {% for index,car in cars %}
+                    <tr class="table-light">
+                        <td><a href="{{ path('car',{id:car.id}) }}">{{ car.title }}</a></td>
+                        <td>
+                            <a href="{{ path('car_edit', {id: car.id}) }}" class="btn btn-md btn-info">Modifier</a>
+                        </td>
+                        {% if car.isPublished %}
+                            <td>
+                                <a href="{{ path('car_deactivate', {id: car.id}) }}" class="btn btn-md btn-danger">Désactiver l'annonce</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <a href="{{ path('car_activate', {id: car.id}) }}" class="btn btn-md btn-success">Activer l'annonce</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+  {% endif %}

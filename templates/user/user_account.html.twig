@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bonjour {{app.user.firstname}}!{% endblock %}
+
+{% block body %}
+{# Flash message #}
+
+
+<div class="container   pt-5 pb-5">
+  {% include "partials/_flash_msg.html.twig" %}
+  <div class="row">
+        <div class="col-sm">
+          <h1 class="title-pages">{{app.user.username}}</h1>
+          <img src="{{ asset('assets/images/logo-profile.png') }}" style="height:20vh" class="img-thumbnail">
+        </div>
+        <div class="col-sm">
+            <div class="list-group">
+                {% if is_granted('ROLE_PROPRIO') %}
+                    <a href="{{ path('car_add') }}" class="list-group-item list-group-item-action">Ajouter une annonce</a>
+                {% endif %}
+                <a href="{{ path('edit') }}" class="list-group-item list-group-item-action">Modifier mes informations personnelles</a>
+                <a href="{{ path('edit_password') }}" class="list-group-item list-group-item-action">Modifier mon mot de passe</a>
+            </div>
+        </div>
+
+  </div>
+  {# Mes demandes de réservations pour le profil proprio #}
+    {% include "user/partials/_bookings.html.twig" %}
+  {# Mes annonces pour le profil proprio #}
+    {% include "user/partials/_announces.html.twig" %}
+  {# Mon historique d'achat / factures #}
+    {% include "user/partials/_locations.html.twig" %}
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,46 @@
+{# Page de la liste des voitures #}
+
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+<div class="container text-center" style="overflow-x: hidden;">
+    <h1 class="title-pages p-4"> Liste des véhicules</h1>
+    {% if cars.getTotalItemCount() < 1 %}
+      <p class="lead text-white pt-5">Aucun résultat trouvé</p>
+      <a href="{{ path('homepage')}}" class="btn btn-outline-primary btn-lg">Modifier la recherche</a>
+    {% else %}
+      <div class="row">
+            {% for car in cars %} 
+              {% if car.isPublished %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="card h-100 text-white border-primary p-relative card-effect">
+                      <a href="{{ path('car', {id:car.id})}}">
+                        <img src="{{ asset('uploads/'~car.images.0.name) }}" class="card-car-img" alt="{{ car.title }}">
+                      </a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a href="{{ path('car', {id:car.id})}}">{{ car.year|date('Y') }} {{ car.brand.name}} {{car.model}} ({{ car.city.name }})</a>
+                      </h4>
+                      <h5 style="position: absolute;top: 0;right: 0;background: #2a9fd6;padding: 1rem;border-bottom-left-radius: 5px;">{{ car.price}} &euro;</h5>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+      </div>
+    {% endif %}
+    {{ knp_pagination_render(	
+        cars,	
+        '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig',	
+        {}, 	
+        {	
+        'align': 'center',	
+        'size': 'large',	
+        'rounded': true,	
+        }	
+    ) }} 	
+</div>
+
+{% endblock %}

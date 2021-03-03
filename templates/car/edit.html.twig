@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{car.title}}{% endblock %}
+
+{% block body %}
+    <div class="container pt-5 pb-5  ">
+        <a href="{{path('user_account')}}" class="btn btn-primary mb-3">Retour vers la liste</a>
+        <h1 class="text-center title-pages"class="text-center title-pages">Modification de l'annonce {{car.title}}</h1>
+        {# Formulaire d'ajout d'une annonce  #}
+        {% include "partials/_announce-form.html.twig" %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+{% endblock %}

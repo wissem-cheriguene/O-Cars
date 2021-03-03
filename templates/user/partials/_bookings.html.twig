@@ -1,0 +1,92 @@
+{% if is_granted('ROLE_PROPRIO') %}
+  
+    <div class="row  pt-5 container">
+        <h3 class="title-pages">Mes demandes de location en cours</h3>
+        <table class="table table-striped table-hover">
+           <thead>
+                <tr class="table-light">
+                <th scope="col">Mon annonce</th>
+                <th scope="col">De la part de</th>
+                <th scope="col">Du</th>
+                <th scope="col">Au</th>
+                <th scope="col">Prix</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for index,booking in bookings %}
+                
+                  {% if booking.status == 1 %}
+                    <tr class="table-light">
+                        <td data-label="Mon annonce">{{ booking.car.title }}</td>
+                        <td data-label="De la part de">{{ booking.user.username }}</td>
+                        <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
+                        <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
+                        <td data-label="Prix">{{ booking.billing }} €</td>
+                        <td><a href="{{ path('rental_validate', {id:booking.id}) }}" class="card-link btn btn-success">Accepter</a></td>
+                        <td><a href="{{ path('rental_refuse', {id:booking.id}) }}" class="card-link btn btn-danger">Refuser</a></td>
+                    </tr>
+                  {% endif %}
+              {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    <div class="row  pt-5 container">
+          <h3 class="title-pages">Mes locations acceptées</h3>
+          <table class="table table-striped table-hover">
+              <thead>
+                  <tr class="table-light">
+                  <th scope="col">Mon annonce</th>
+                  <th scope="col">De la part de</th>
+                  <th scope="col">Du</th>
+                  <th scope="col">Au</th>
+                  <th scope="col">Prix</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for index,booking in bookings %}
+                  
+                    {% if booking.status == 2 %}
+                      <tr class="table-light">
+                          <td data-label="Mon annonce">{{ booking.car.title }}</td>
+                          <td data-label="De la part de">{{ booking.user.username }}</td>
+                          <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
+                          <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
+                          <td data-label="Prix">{{ booking.billing }} €</td>
+                      </tr>
+                    {% endif %}
+                {% endfor %}
+          </tbody>
+          </table>
+    </div>
+    
+    <div class="row  pt-5 container">
+          <h3 class="title-pages">Mes locations refusées</h3>
+          <table class="table table-striped table-hover">
+              <thead>
+                  <tr class="table-light">
+                  <th scope="col">Mon annonce</th>
+                  <th scope="col">De la part de</th>
+                  <th scope="col">Du</th>
+                  <th scope="col">Au</th>
+                  <th scope="col">Prix</th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for index,booking in bookings %}
+                    {% if booking.status == 3 %}
+                      <tr class="table-light">
+                          <td data-label="Mon annonce">{{ booking.car.title }}</td>
+                          <td data-label="De la part de">{{ booking.user.username }}</td>
+                          <td data-label="Du">{{ booking.startingDate|date('Y-m-d') }}</td>
+                          <td data-label="Au">{{ booking.endingDate|date('Y-m-d') }}</td>
+                          <td data-label="Prix">{{ booking.billing }} €</td>
+                      </tr>
+                      {% endif %}
+                {% endfor %}
+          </tbody>
+          </table>
+    </div>
+  {% endif %}
